@@ -60,10 +60,14 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.12.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:4.3.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.22" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.22" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:4.3.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.40" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-spring4:2.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:2.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: ognl:ognl:3.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.unbescape:unbescape:1.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.22" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
   </component>
 </module>

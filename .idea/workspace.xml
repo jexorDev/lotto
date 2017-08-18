@@ -5,7 +5,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lotto.iml" afterPath="$PROJECT_DIR$/lotto.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application-local.properties" afterPath="$PROJECT_DIR$/src/main/resources/application-local.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,11 +21,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="37" column="0" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="37" selection-end-column="0" />
+            <state relative-caret-position="674">
+              <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -60,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application-local.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="application-local.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application-local.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="88">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -142,8 +141,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/application-prod.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/application-test.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/application-local.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -688,7 +687,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1503061867292</updated>
-      <workItem from="1503061874552" duration="6447000" />
+      <workItem from="1503061874552" duration="7772000" />
     </task>
     <task id="LOCAL-00001" summary="Updated pom.xml to incorporate spring framework and autoconfig">
       <created>1503063293182</created>
@@ -746,11 +745,18 @@
       <option name="project" value="LOCAL" />
       <updated>1503067664454</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added MySQL dependencies">
+      <created>1503068361601</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1503068361601</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6447000" />
+    <option name="totallyTimeSpent" value="7772000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -813,7 +819,8 @@
     <MESSAGE value="Added some commented examples of Spring MVC URL mapping based on the dasboot example from Pluralsight" />
     <MESSAGE value="Added some application properties files. Set VM options to -Dspring.profiles.active={local or prod or test}" />
     <MESSAGE value="Added Spring Data JPA dpendency" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Spring Data JPA dpendency" />
+    <MESSAGE value="Added MySQL dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added MySQL dependencies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -880,18 +887,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-local.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="37" selection-end-column="0" />
+        <state relative-caret-position="88">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-local.properties">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="674">
+          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
       </provider>
