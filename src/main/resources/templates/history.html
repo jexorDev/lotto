@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="history"> <!-- contents render, but this div disappears -->
+    <h3><span class="label label-info">Transaction History</span></h3>
+
+    <div class="row">
+        <div class="col-md-2">Date</div>
+        <div class="col-md-6">Description</div>
+        <div class="col-md-2">vs Anthony</div>
+        <div class="col-md-2">vs Sean</div>
+    </div>
+
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <div th:replace="history :: record" />
+    <a href="#">Load More</a>
+</div>
+
+<div th:fragment="record" class="row">
+    <div class="col-md-2">2017-08-01</div>
+    <div class="col-md-6">Someone paid $NN to Otherperson</div>
+    <div class="col-md-2">+11</div>
+    <div class="col-md-2">-7</div>
+</div>
+
+</body>
+</html>

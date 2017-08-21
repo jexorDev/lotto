@@ -5,41 +5,54 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <style type="text/css">
-    div {
-        border:1px solid #aaa;
+    .ticket-wrapper {
+        border:2px solid black;
+        border-radius:5px;
+        margin:5px;
+        padding:2px;
+    }
+    label.payment {
+        text-align:right;
+        width:70px;
+    }
+    select.payment {
+        width:174px;
+    }
+    label.ticket {
+        text-align:right;
+        width:105px;
+    }
+    .right {
+        text-align:right;
+    }
+    .ticket-numbers {
+        width:20px;
+    }
+    label.ticket-numbers {
+        text-align:center;
     }
 </style>
 <body>
 
-<div th:fragment="tickets" th:remove="all">
-    <div th:each="ticket : ${tickets}">
-        One Ticket
-    </div>
-</div>
-
     <div class="container-fluid">
-
         <div class="row">
-            <div class="col-md-9" th:include="this :: tickets">Current Tickets</div>
-            <div class="col-md-3">Current Debts</div>
+            <div class="col-md-12" th:include="header :: header"/>
         </div>
         <div class="row">
-            <div class="col-md-6">Add Ticket</div>
-            <div class="col-md-6">Add Payment</div>
+            <div class="col-md-3">
+                <div class="well" th:include="debts :: current "/>
+                <div class="well" th:include="addTicket :: new"/>
+                <div class="well" th:include="addPayment :: new"/>
+            </div>
+            <div class="col-md-9">
+                <div th:include="tickets :: tickets"/>
+                <div th:include="history :: history"/>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">History</div>
-        </div>
-
-        <!--
-        resources/templates/home.html<br />
-        <span th:text="${name}">default</span>
-        -->
     </div>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" />
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js" />
+
 </body>
 </html>

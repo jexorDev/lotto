@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="new"> <!-- contents render, but this div disappears -->
+    <h3><span class="label label-info">Add Ticket</span></h3>
+
+    <label class="ticket">Purchaser:</label>
+    <select>
+        <option>Anthony</option>
+        <option selected="selected">Dustin</option>
+        <option>Sean</option>
+    </select>
+    <br/>
+
+    <label class="ticket">Players:</label>
+    <input type="checkbox" />Anthony
+    <br/>
+    <label class="ticket"/>
+    <input type="checkbox" checked="checked" disabled="disabled"/>Dustin
+    <br/>
+    <label class="ticket"/>
+    <input type="checkbox" />Sean
+    <br/>
+
+    <label class="ticket">Purchase Date:</label>
+    <input />
+    <br/>
+
+    <label class="ticket">Power Play:</label>
+    <input type="checkbox" />
+    <br/>
+
+    <label class="ticket">Cost:</label>
+    <input />
+    <br/>
+
+
+    <label class="ticket"/>
+    <label class="ticket-numbers">1</label>
+    <label class="ticket-numbers">2</label>
+    <label class="ticket-numbers">3</label>
+    <label class="ticket-numbers">4</label>
+    <label class="ticket-numbers">5</label>
+    <label class="ticket-numbers">PB</label>
+    <button type="button">+</button>
+    <br/>
+
+    <label class="ticket">Numbers:</label>
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <br/>
+
+    <label class="ticket"/>
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <button type="button">-</button>
+    <br/>
+
+    <label class="ticket"/>
+    <button type="button">Add Ticket</button>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="header"> <!-- contents render, but this div disappears -->
+    <div class="col-md-6">
+        <h1>S.A.D. Lotto</h1>
+    </div>
+    <div class="col-md-6 right">
+        <label>Who are you?</label>
+        <select>
+            <option>Anthony</option>
+            <option selected="selected">Dustin</option>
+            <option>Sean</option>
+        </select>
+    </div>
+</div>
+
+</body>
+</html>

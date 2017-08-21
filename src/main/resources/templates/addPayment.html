@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="new"> <!-- contents render, but this div disappears -->
+    <h3><span class="label label-info">Add Payment</span></h3>
+
+    <label class="payment">From:</label>
+    <select class="payment">
+        <option>Anthony</option>
+        <option selected="selected">Dustin</option>
+        <option>Sean</option>
+    </select>
+    <br />
+
+    <label class="payment">To:</label>
+    <select class="payment">
+        <option>Anthony</option>
+        <option>Dustin</option>
+        <option>Sean</option>
+    </select>
+    <br />
+
+    <label class="payment">Amount:</label>
+    <input name="amount" />
+    <br />
+
+    <label class="payment">Date:</label>
+    <input name="date" value="2017-08-21" />
+    <br />
+
+    <label class="payment"/>
+    <button class="payment" type="button">Add Payment</button>
+</div>
+
+</body>
+</html>
