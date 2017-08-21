@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="tickets"> <!-- contents render, but this div disappears -->
+    <h3><span class="label label-info">Active Tickets66666</span></h3>
+    <p><a href="#">Show All</a></p>
+    <div th:replace="tickets :: ticket" />
+    <div th:replace="tickets :: ticket" />
+    <div th:replace="tickets :: ticket" />
+    <div th:replace="tickets :: ticket" />
+    <div th:replace="tickets :: ticket" />
+    <div th:replace="tickets :: ticket" />
+</div>
+
+<div th:fragment="ticket" class="col-md-2 ticket">
+    <div class="ticket-wrapper">
+        <b>Bought Tue, 8/15</b><br/>
+        <i>Anthony, Dustin, Sean</i><br/>
+        Power Play!<br/>
+
+        <p>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span><br/>
+        </p>
+
+        <p>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span><br/>
+        </p>
+
+        <p>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+            <span class="badge">11</span>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
