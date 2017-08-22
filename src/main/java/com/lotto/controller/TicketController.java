@@ -44,7 +44,6 @@ public class TicketController {
         return "User succesfully created! (id = " + ticket.getId() + ")";
     }
 
-
     /**
      * /get-by-email  --> Return the id for the user having the passed email.
      *
@@ -64,8 +63,6 @@ public class TicketController {
         }
         return "The user id is: " + userId;
     }*/
-
-
 
     // ------------------------
     // PRIVATE FIELDS

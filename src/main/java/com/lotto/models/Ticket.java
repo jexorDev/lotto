@@ -2,6 +2,8 @@ package com.lotto.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -84,4 +86,41 @@ public class Ticket {
     public void setPurchaserUserId(long purchaserUserId) {
         this.purchaserUserId = purchaserUserId;
     }
+
+    public Date GetJavaDate() {
+        Date javaDate = new Date(purchaseDate.getTime());
+        javaDate.setYear(javaDate.getYear()-1900);
+        return javaDate;
+    }
+
+    public Date GetDrawDate() {
+        Date javaDate = GetJavaDate();
+
+        // the draw dates are either Wednesday (3) or Saturday (6)
+        int dow = javaDate.getDay() <= 3 ? 3 : 6;
+
+        // find the number of days that need to be added to the current date to get the draw date
+        int diff = dow - javaDate.getDay();
+
+        // return the draw date
+        return AddDays(javaDate, diff);
+    }
+
+    public Date AddDays(Date date, int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        return cal.getTime();
+    }
+
+    public String GetPlayers(){
+        if (purchaserUserId == 1){
+            return "Anthony";
+        } else if (purchaserUserId == 2) {
+            return "Dustin and Anthony";
+        } else {
+            return "Sean, Dustin, and Anthony";
+        }
+    }
+
 } // class User

@@ -3,48 +3,82 @@
 <body>
 
 <div th:fragment="tickets"> <!-- contents render, but this div disappears -->
-    <h3><span class="label label-info">Active Tickets</span></h3>
-    <p><a href="#">Show All</a></p>
-    <div th:replace="tickets :: ticket" />
-    <div th:replace="tickets :: ticket" />
-    <div th:replace="tickets :: ticket" />
-    <div th:replace="tickets :: ticket" />
-    <div th:replace="tickets :: ticket" />
-    <div th:replace="tickets :: ticket" />
+    <h2 class="media-heading pale">Active Tickets</h2>
+    <p class="label label-info"><a href="#">Show All</a></p>
+
+    <div th:each="ticket : ${tickets}">
+        <div th:replace="tickets :: ticket" />
+    </div>
 </div>
 
 <div th:fragment="ticket" class="col-md-2 ticket">
-    <div class="ticket-wrapper">
-        <b>Bought Tue, 8/15</b><br/>
-        <i>Anthony, Dustin, Sean</i><br/>
-        Power Play!<br/>
+    <div class="well ticket-wrapper" th:classappend="${ticket.purchaserUserId}==1 ? 'powerplay' : 'standard'">
+        <div class="col-md-6 nopadding">
+            <span class="glyphicon glyphicon-usd" style="font-size:25px;"/><br/>
+            <span th:text="${#dates.format(ticket.GetJavaDate(), 'EEE, MMM dd')}" />
+        </div>
+        <div class="col-md-6 nopadding right">
+            <span class="glyphicon glyphicon-tower" style="font-size:25px;"/><br/>
+            <span th:text="${#dates.format(ticket.GetDrawDate(), 'EEE, MMM dd')}"/>
+        </div>
 
-        <p>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span><br/>
+        <p class="players">
+            <span class="glyphicon glyphicon-user"/>
+            <!-- TODO: replace this method in the controller -->
+            <span th:text="${ticket.GetPlayers()}"/>
         </p>
 
-        <p>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span><br/>
+        <!-- TODO: replace this IF with a check for the boolean of whether the ticket is a power play. -->
+        <!--
+        <span th:if="${ticket.purchaserUserId}==1">
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+            <span class="glyphicon glyphicon-flash"/>
+        </span>
+        <br/>
+        -->
+
+        <!-- TODO: change this to actually checking whether the ticketis a powerplay -->
+        <span th:unless="${ticket.purchaserUserId}==1">&nbsp;</span>
+        <span th:if="${ticket.purchaserUserId}==1">
+            <span class="glyphicon glyphicon-flash"/>
+            Power Play!
+        </span>
+
+        <p class="pick">
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-danger">11</span><br/>
         </p>
 
-        <p>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
-            <span class="badge">11</span>
+        <p class="pick">
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-danger">11</span><br/>
         </p>
+
+        <p class="pick">
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-default">11</span>
+            <span class="label label-danger">11</span><br/>
+        </p>
+
     </div>
 </div>
 
