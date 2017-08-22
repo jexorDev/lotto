@@ -1,8 +1,11 @@
 package com.lotto.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -34,11 +37,18 @@ public class Ticket {
     @NotNull
     private Date purchaseDate;
 
-    // The id of the user who purchased the ticket
+    // The user who purchased the ticket
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private User purchaserUser;
+
+    // The list of picks associated with the ticket
+    @NotNull
+    @NotEmpty
+    @OneToMany(fetch = FetchType.LAZY)
+    @MapsId
+    private ArrayList<Pick> picks;
 
     // ------------------------
     // PUBLIC METHODS
@@ -54,6 +64,10 @@ public class Ticket {
         this.cost = cost;
         this.purchaseDate = purchaseDate;
         this.purchaserUser = purchaserUser;
+
+        this.picks = new ArrayList<Pick>;
+        picks.add(new Pick(1,2,3,4,5,11));
+        picks.add(new Pick(6, 7, 8, 9, 10,12));
     }
 
     // Getter and setter methods
