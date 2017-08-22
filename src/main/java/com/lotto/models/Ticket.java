@@ -34,7 +34,9 @@ public class Ticket {
 
     // The id of the user who purchased the ticket
     @NotNull
-    private long purchaserUserId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private User purchaserUser;
 
     // ------------------------
     // PUBLIC METHODS
@@ -46,10 +48,10 @@ public class Ticket {
         this.id = id;
     }
 
-    public Ticket(Integer cost, Date purchaseDate, long purchaserUserId) {
+    public Ticket(Integer cost, Date purchaseDate, User purchaserUser) {
         this.cost = cost;
         this.purchaseDate = purchaseDate;
-        this.purchaserUserId = purchaserUserId;
+        this.purchaserUser = purchaserUser;
     }
 
     // Getter and setter methods
@@ -77,11 +79,11 @@ public class Ticket {
         this.purchaseDate = purchasedate;
     }
 
-    public long getPurchaserUserId() {
-        return purchaserUserId;
+    public User getPurchaserUser() {
+        return purchaserUser;
     }
 
-    public void setPurchaserUserId(long purchaserUserId) {
-        this.purchaserUserId = purchaserUserId;
+    public void setPurchaserUser(User purchaserUser) {
+        this.purchaserUser = purchaserUser;
     }
 } // class User
