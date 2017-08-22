@@ -2,6 +2,8 @@ package com.lotto.controller;
 
 import com.lotto.models.Ticket;
 import com.lotto.models.TicketDao;
+import com.lotto.models.User;
+import com.lotto.models.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,15 +38,20 @@ public class HomeController {
     @Autowired
     private TicketDao ticketDao;
 
+    @Autowired
+    private UserDao userDao;
+
     private void loadTickets(){
-        ticketDao.save(new Ticket(7, new Date(2017, 7, 12), 3));
-        ticketDao.save(new Ticket(5, new Date(2016, 9, 25), 3));
-        ticketDao.save(new Ticket(8, new Date(2017, 5, 11), 1));
-        ticketDao.save(new Ticket(5, new Date(2017, 1, 30), 2));
-        ticketDao.save(new Ticket(9, new Date(2017, 1, 6), 3));
-        ticketDao.save(new Ticket(7, new Date(2017, 3, 28), 1));
+        User testUser = new User("Dustin",true, "Welcome123", "", null);
+        userDao.save(testUser);
+        ticketDao.save(new Ticket(7, new Date(2017, 7, 12), testUser));
+        ticketDao.save(new Ticket(5, new Date(2016, 9, 25), testUser));
+        ticketDao.save(new Ticket(8, new Date(2017, 5, 11), testUser));
+        ticketDao.save(new Ticket(5, new Date(2017, 1, 30), testUser));
+        ticketDao.save(new Ticket(9, new Date(2017, 1, 6), testUser));
+        ticketDao.save(new Ticket(7, new Date(2017, 3, 28), testUser));
         return;
-        /*
+/*
         ticketDao.save(new Ticket(5, new Date(2017, 6, 28), 1));
         ticketDao.save(new Ticket(3, new Date(2016, 10, 12), 10));
         ticketDao.save(new Ticket(2, new Date(2016, 12, 14), 5));

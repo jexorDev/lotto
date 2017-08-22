@@ -40,7 +40,6 @@ public class Ticket {
     // The user who purchased the ticket
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     private User purchaserUser;
 
     // The list of picks associated with the ticket
@@ -130,9 +129,9 @@ public class Ticket {
     }
 
     public String GetPlayers(){
-        if (purchaserUserId == 1){
+        if (purchaserUser.getId() == 1){
             return "Anthony";
-        } else if (purchaserUserId == 2) {
+        } else if (purchaserUser.getId() == 2) {
             return "Dustin and Anthony";
         } else {
             return "Sean, Dustin, and Anthony";
