@@ -2,6 +2,8 @@ package com.lotto.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * An entity Pick
@@ -46,6 +48,12 @@ public class Pick {
     // The powerBall pick
     @NotNull
     private Integer powerBall;
+
+    // The ticket associated with these picks
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="ticket_id", nullable=false)
+    private Ticket ticket;
 
     // ------------------------
     // PUBLIC METHODS
@@ -117,6 +125,19 @@ public class Pick {
 
     public Integer getPowerBall(){
         return powerBall;
+    }
+
+    public Iterable<Integer> GetSortedPicks(){
+        ArrayList<Integer> sorted = new ArrayList<Integer>();
+        sorted.add(pick1);
+        sorted.add(pick2);
+        sorted.add(pick3);
+        sorted.add(pick4);
+        sorted.add(pick5);
+
+        Collections.sort(sorted);
+
+        return sorted;
     }
 
     public void setPowerBall(Integer powerBall){

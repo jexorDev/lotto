@@ -4,10 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * An entity Ticket
@@ -44,10 +41,8 @@ public class Ticket {
 
     // The list of picks associated with the ticket
     @NotNull
-    @NotEmpty
-    @OneToMany(fetch = FetchType.LAZY)
-    @MapsId
-    private ArrayList<Pick> picks;
+    @OneToMany(mappedBy="ticket")
+    private Collection<Pick> picks;
 
     // ------------------------
     // PUBLIC METHODS
@@ -64,9 +59,46 @@ public class Ticket {
         this.purchaseDate = purchaseDate;
         this.purchaserUser = purchaserUser;
 
-        this.picks = new ArrayList<Pick>;
-        picks.add(new Pick(1,2,3,4,5,11));
-        picks.add(new Pick(6, 7, 8, 9, 10,12));
+        // TODO: delete this while removing random picks
+        this.picks = new ArrayList<Pick>();
+        for (int i = 0; i <= randomNumber(5); i++) {
+            picks.add(randomPick());
+        }
+    }
+
+    // TODO: delete this while removing random picks
+    private Pick randomPick(){
+        ArrayList<Integer> picks = new ArrayList<Integer>();
+
+        int needed = 5;
+
+        while (needed > 0){
+            int newNumber = randomNumber(69);
+            if (!picks.contains(newNumber)){
+                picks.add(newNumber);
+                needed--;
+            }
+        }
+
+        int powerBall = randomNumber(26);
+
+        return new Pick(picks.get(0), picks.get(1), picks.get(2), picks.get(3), picks.get(4), powerBall);
+    }
+
+    // TODO: delete this while removing random picks
+    private Integer randomNumber(Integer max){
+        Random r = new Random();
+        int result = r.nextInt(max + 1);
+
+        if (result > 0 && result <= max){
+            return result;
+        } else {
+            return randomNumber(max);
+        }
+    }
+
+    public Iterable<Pick> GetPicks(){
+        return picks;
     }
 
     // Getter and setter methods

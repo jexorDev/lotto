@@ -3,7 +3,7 @@
 <body>
 
 <div th:fragment="tickets"> <!-- contents render, but this div disappears -->
-    <h2 class="media-heading pale">Active Tickets</h2>
+    <div class="h2 media-heading pale">Active Tickets</div>
     <p class="label label-info"><a href="#">Show All</a></p>
 
     <div th:each="ticket : ${tickets}">
@@ -14,69 +14,37 @@
 <div th:fragment="ticket" class="col-md-2 ticket">
     <div class="well ticket-wrapper" th:classappend="${ticket.purchaserUser.id}==1 ? 'powerplay' : 'standard'">
         <div class="col-md-6 nopadding">
-            <span class="glyphicon glyphicon-usd" style="font-size:25px;"/><br/>
-            <span th:text="${#dates.format(ticket.GetJavaDate(), 'EEE, MMM dd')}" />
+            <span class="glyphicon glyphicon-usd" style="font-size:25px;"></span><br/>
+            <span th:text="${#dates.format(ticket.GetJavaDate(), 'EEE, MMM dd')}"></span>
         </div>
         <div class="col-md-6 nopadding right">
-            <span class="glyphicon glyphicon-tower" style="font-size:25px;"/><br/>
-            <span th:text="${#dates.format(ticket.GetDrawDate(), 'EEE, MMM dd')}"/>
+            <span class="glyphicon glyphicon-tower" style="font-size:25px;"></span><br/>
+            <span th:text="${#dates.format(ticket.GetDrawDate(), 'EEE, MMM dd')}"></span>
         </div>
 
-        <p class="players">
-            <span class="glyphicon glyphicon-user"/>
+        <p>
+            <span class="glyphicon glyphicon-user"></span>
             <!-- TODO: replace this method in the controller -->
-            <span th:text="${ticket.GetPlayers()}"/>
+            <span th:text="${ticket.GetPlayers()}"></span>
         </p>
 
-        <!-- TODO: replace this IF with a check for the boolean of whether the ticket is a power play. -->
-        <!--
-        <span th:if="${ticket.purchaserUserId}==1">
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-            <span class="glyphicon glyphicon-flash"/>
-        </span>
-        <br/>
-        -->
-
-        <!-- TODO: change this to actually checking whether the ticketis a powerplay -->
-        <span th:unless="${ticket.purchaserUser.id}==1">&nbsp;</span>
-        <span th:if="${ticket.purchaserUser.id}==1">
-            <span class="glyphicon glyphicon-flash"/>
-            Power Play!
-        </span>
-
-        <p class="pick">
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-danger">11</span><br/>
+        <p>
+            <!-- TODO: change this to actually checking whether the ticketis a powerplay -->
+            <span th:unless="${ticket.purchaserUser.id}==1">&nbsp;</span>
+            <span th:if="${ticket.purchaserUser.id}==1">
+                <span class="glyphicon glyphicon-flash"></span>
+                Power Play!
+            </span>
         </p>
 
-        <p class="pick">
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-danger">11</span><br/>
-        </p>
-
-        <p class="pick">
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-default">11</span>
-            <span class="label label-danger">11</span><br/>
+        <p>
+            <span th:each="pick : ${ticket.GetPicks()}">
+                <span th:each="number : ${pick.GetSortedPicks()}">
+                    <span th:text="${number}" class="label label-default pick-number"></span>
+                </span>
+                <span th:text="${pick.powerBall}" class="label label-danger pick-number"></span>
+            </span>
+            <br/>
         </p>
 
     </div>
