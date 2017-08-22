@@ -12,7 +12,7 @@
 </div>
 
 <div th:fragment="ticket" class="col-md-2 ticket">
-    <div class="well ticket-wrapper" th:classappend="${ticket.purchaserUserId}==1 ? 'powerplay' : 'standard'">
+    <div class="well ticket-wrapper" th:classappend="${ticket.purchaserUser.id}==1 ? 'powerplay' : 'standard'">
         <div class="col-md-6 nopadding">
             <span class="glyphicon glyphicon-usd" style="font-size:25px;"/><br/>
             <span th:text="${#dates.format(ticket.GetJavaDate(), 'EEE, MMM dd')}" />
@@ -46,8 +46,8 @@
         -->
 
         <!-- TODO: change this to actually checking whether the ticketis a powerplay -->
-        <span th:unless="${ticket.purchaserUserId}==1">&nbsp;</span>
-        <span th:if="${ticket.purchaserUserId}==1">
+        <span th:unless="${ticket.purchaserUser.id}==1">&nbsp;</span>
+        <span th:if="${ticket.purchaserUser.id}==1">
             <span class="glyphicon glyphicon-flash"/>
             Power Play!
         </span>
