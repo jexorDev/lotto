@@ -2,6 +2,7 @@ package com.lotto.controller;
 
 import com.lotto.models.Ticket;
 import com.lotto.models.TicketDao;
+import com.lotto.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * A class to test interactions with the MySQL database using the TicketDao class.
@@ -27,21 +30,21 @@ public class TicketController {
      *
      * @param cost Ticket cost
      * @param purchaseDate Date ticket was purchased
-     * @param purchaserUserId Id of the user who purchased the ticket.  Note that this can be sent in the body of the HTTP request.
+     * @param purchaserUser User object of the user who purchased the ticket.  Note: you probably don't need the @requestparm.
      * @return A string describing if the user is succesfully created or not.
      */
-    @RequestMapping("/ticket/create")
+    @RequestMapping(value="/ticket/create", method=POST )
     @ResponseBody
-    public String create(Integer cost, Date purchaseDate, @RequestParam(value="purchaserUserId") long purchaserUserId) {
+    public String create(Integer cost, Date purchaseDate, @RequestParam(value="purchaserUser") User purchaserUser) {
         Ticket ticket = null;
         try {
-            ticket = new Ticket(cost, purchaseDate, purchaserUserId);
+            ticket = new Ticket(cost, purchaseDate, purchaserUser);
             ticketDao.save(ticket);
         }
         catch (Exception ex) {
-            return "Error creating the user: " + ex.toString();
+            return "Error creating the ticket: " + ex.toString();
         }
-        return "User succesfully created! (id = " + ticket.getId() + ")";
+        return "Ticket succesfully created! (id = " + ticket.getId() + ")";
     }
 
     /**

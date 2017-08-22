@@ -27,6 +27,7 @@ public class UserController {
      * @param name User's name
      * @return A string describing if the user is succesfully created or not.
      */
+    /*
     @RequestMapping("/create")
     @ResponseBody
     public String create(String email, String name) {
@@ -39,7 +40,7 @@ public class UserController {
             return "Error creating the user: " + ex.toString();
         }
         return "User succesfully created! (id = " + user.getId() + ")";
-    }
+    }*/
 
     /**
      * /delete  --> Delete the user having the passed id.
@@ -47,6 +48,7 @@ public class UserController {
      * @param id The id of the user to delete
      * @return A string describing if the user is succesfully deleted or not.
      */
+    /*
     @RequestMapping("/delete")
     @ResponseBody
     public String delete(long id) {
@@ -59,7 +61,7 @@ public class UserController {
         }
         return "User succesfully deleted!";
     }
-
+    */
     /**
      * /get-by-email  --> Return the id for the user having the passed email.
      *
@@ -71,13 +73,13 @@ public class UserController {
     public String getByEmail(String email) {
         String userId;
         try {
-            User user = userDao.findByEmail(email);
-            userId = String.valueOf(user.getId());
+            //User user = userDao.findByEmail(email);
+            //userId = String.valueOf(user.getId());
         }
         catch (Exception ex) {
             return "User not found";
         }
-        return "The user id is: " + userId;
+        return "The user id is: "; //+ userId;
     }
 
     /**
@@ -89,6 +91,7 @@ public class UserController {
      * @param name The new name.
      * @return A string describing if the user is succesfully updated or not.
      */
+    /*
     @RequestMapping("/update")
     @ResponseBody
     public String updateUser(long id, String email, String name) {
@@ -102,7 +105,7 @@ public class UserController {
             return "Error updating the user: " + ex.toString();
         }
         return "User succesfully updated!";
-    }
+    }*/
 
     // ------------------------
     // PRIVATE FIELDS
