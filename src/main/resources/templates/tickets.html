@@ -14,11 +14,11 @@
 <div th:fragment="ticket" class="col-md-2 ticket">
     <div class="well ticket-wrapper" th:classappend="${ticket.purchaserUser.id}==1 ? 'powerplay' : 'standard'">
         <div class="col-md-6 nopadding">
-            <span class="glyphicon glyphicon-usd" style="font-size:25px;"/><br/>
+            <h5 class="date-label"><small>Purchased</small></h5>
             <span th:text="${#dates.format(ticket.GetJavaDate(), 'EEE, MMM dd')}" />
         </div>
         <div class="col-md-6 nopadding right">
-            <span class="glyphicon glyphicon-tower" style="font-size:25px;"/><br/>
+            <h5 class="date-label"><small>Drawing</small></h5>
             <span th:text="${#dates.format(ticket.GetDrawDate(), 'EEE, MMM dd')}"/>
         </div>
 

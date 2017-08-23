@@ -11,6 +11,9 @@
     body{
         background-color:#1c66b0;
     }
+    .date-label{
+        margin:1px;
+    }
     .pale {
         color:#f5f5f5;
     }
@@ -59,13 +62,13 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12" th:include="header :: header"/>
+            <div th:include="header :: header"/>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <div class="well" th:include="debts :: current "/>
-                <div class="well" th:include="addTicket :: new"/>
-                <div class="well" th:include="addPayment :: new"/>
+                <div th:include="debts :: current "/>
+                <div th:include="addTicket :: new"/>
+                <div th:include="addPayment :: new"/>
             </div>
             <div class="col-md-9">
                 <div th:include="tickets :: tickets"/>
