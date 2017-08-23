@@ -24,6 +24,7 @@ public class HomeController {
     public Model home(Model model) {
         loadTickets();
 
+        model.addAttribute("currentUser", userDao.findOne((long)3));
         model.addAttribute("name", "jacob");
         model.addAttribute("tickets", ticketDao.findAll());
         model.addAttribute("users", userDao.findAll());

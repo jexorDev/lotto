@@ -7,12 +7,7 @@
         <h1 class="pale">S.A.D. Lotto</h1>
     </div>
     <div id="header-options" class="col-md-6 right">
-        <label class="pale">Who are you?</label>
-        <select>
-            <option>Anthony</option>
-            <option selected="selected">Dustin</option>
-            <option>Sean</option>
-        </select>
+        <label th:inline="text" class="pale">Welcome, [[${currentUser.userName}]]!</label>
     </div>
 </div>
 

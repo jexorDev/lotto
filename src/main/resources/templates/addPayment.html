@@ -7,17 +7,15 @@
 
     <label class="payment">From:</label>
     <select class="payment">
-        <option>Anthony</option>
-        <option selected="selected">Dustin</option>
-        <option>Sean</option>
+        <!-- select the current user by default -->
+        <option th:each="user : ${users}" th:text="${user.userName}" th:if="${user.id == currentUser.id}" selected="selected"></option>
+        <option th:each="user : ${users}" th:text="${user.userName}" th:if="${user.id != currentUser.id}"></option>
     </select>
     <br />
 
     <label class="payment">To:</label>
     <select class="payment">
-        <option>Anthony</option>
-        <option>Dustin</option>
-        <option>Sean</option>
+        <option th:each="user : ${users}" th:text="${user.userName}"></option>
     </select>
     <br />
 

@@ -6,22 +6,18 @@
     <h2 class="media-heading">Add Ticket</h2>
 
     <label class="ticket">Purchaser:</label>
-    <select>
-        <option>Anthony</option>
-        <option selected="selected">Dustin</option>
-        <option>Sean</option>
-    </select>
+    <b th:inline="text">[[${currentUser.userName}]]</b>
     <br/>
 
     <label class="ticket">Players:</label>
-    <input type="checkbox" />Anthony
+    <input type="checkbox" checked="checked" disabled="disabled" th:text=" ${currentUser.userName}"/>
     <br/>
-    <label class="ticket"/>
-    <input type="checkbox" checked="checked" disabled="disabled"/>Dustin
-    <br/>
-    <label class="ticket"/>
-    <input type="checkbox" />Sean
-    <br/>
+
+    <span th:each="user : ${users}" th:if="${user.id != currentUser.id}">
+        <label class="ticket">&nbsp;</label>
+        <input type="checkbox" th:text=" ${user.userName}"/>
+        <br/>
+    </span>
 
     <label class="ticket">Purchase Date:</label>
     <input />
