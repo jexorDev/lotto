@@ -11,23 +11,10 @@
         <tr>
             <th>Date</th>
             <th>Description</th>
-            <th>vs Anthony</th>
-            <th>vs Sean</th>
+            <th>Amount</th>
+            <th>Running Total</th>
         </tr>
-
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
-        <div th:replace="history :: record" />
+        <tr th:each="transaction : ${history.transactions}" th:include="history :: record" th:if="${transaction.Display()}"></tr>
 
     </table>
 
@@ -37,14 +24,12 @@
 
 </div>
 
-<div th:fragment="record">
-    <tr>
-        <td>2017/08/01</td>
-        <td>Someone paid $xx to otherperson</td>
-        <td>+11</td>
-        <td>-7</td>
-    </tr>
-</div>
+<tr th:fragment="record">
+    <td th:text="${#dates.format(transaction.GetJavaDate(), 'MM/dd/yyyy')}"></td>
+    <td th:text="${transaction.description}"></td>
+    <td th:inline="text">$ [[${#numbers.formatDecimal(transaction.amount, 0, 'COMMA', 2, 'POINT')}]]</td>
+    <td th:inline="text">$ [[${#numbers.formatDecimal(transaction.runningTotal, 0, 'COMMA', 2, 'POINT')}]]</td>
+</tr>
 
 </body>
 </html>

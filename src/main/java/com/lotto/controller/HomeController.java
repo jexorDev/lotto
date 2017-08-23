@@ -1,9 +1,6 @@
 package com.lotto.controller;
 
-import com.lotto.models.Ticket;
-import com.lotto.models.TicketDao;
-import com.lotto.models.User;
-import com.lotto.models.UserDao;
+import com.lotto.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
@@ -33,6 +30,18 @@ public class HomeController {
         Collections.sort(tickets);
         model.addAttribute("tickets", tickets);
 
+        // TODO remove this and make history.processTransactions be dynamic
+        User dustin = userDao.findOne((long)1);
+        User anthony = userDao.findOne((long)2);
+        User sean = userDao.findOne((long)3);
+
+
+        History history = new History(userDao);
+        history.AddPayments(paymentDao.findAll());
+        history.AddTickets(tickets);
+        history.processTransactions(dustin, anthony, 5.0);
+        model.addAttribute("history", history);
+
         // get the users and sort them
         List<User> users = new ArrayList<User>();
         for (User u : userDao.findAll()){
@@ -57,6 +66,9 @@ public class HomeController {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private PaymentDao paymentDao;
+
     private void loadTickets(){
         User testUser = new User("Dustin",true, "Welcome123", "", null);
         userDao.save(testUser);
@@ -71,6 +83,13 @@ public class HomeController {
         ticketDao.save(new Ticket(5, new Date(2017, 1, 30), testUser2));
         ticketDao.save(new Ticket(5, new Date(2017, 9, 25), testUser));
         ticketDao.save(new Ticket(9, new Date(2017, 1, 6), testUser2));
+
+        paymentDao.save(new Payment(3, 2, new Date(2017,1,6), 3.00));
+        paymentDao.save(new Payment(2, 1, new Date(2017,2,6), 3.00));
+        paymentDao.save(new Payment(2, 3, new Date(2017,2,6), 2.00));
+        paymentDao.save(new Payment(1, 2, new Date(2017,3,6), 5.00));
+        paymentDao.save(new Payment(2, 3, new Date(2017,4,6), 3.00));
+        paymentDao.save(new Payment(2, 1, new Date(2017,7,6), 6.00));
         return;
     }
 
