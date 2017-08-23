@@ -59,7 +59,4 @@ public class Payment {
 
     public void setRecipientId(Integer recipientId) { this.recipientId = recipientId; }
 
-
-
-
 }
