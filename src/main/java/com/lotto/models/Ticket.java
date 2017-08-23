@@ -15,8 +15,12 @@ import java.util.*;
  */
 @Entity
 @Table(name = "ticket")
-public class Ticket {
+public class Ticket implements Comparable {
 
+    @Override
+    public int compareTo(Object o) {
+        return this.purchaseDate.compareTo(((Ticket)o).purchaseDate);
+    }
     // ------------------------
     // PRIVATE FIELDS
     // ------------------------

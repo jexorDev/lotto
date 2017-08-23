@@ -9,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-
+import java.util.*;
 
 @RestController
 //@RequestMapping("api/v1/")
@@ -24,10 +21,26 @@ public class HomeController {
     public Model home(Model model) {
         loadTickets();
 
+        // TODO replace the "3" to get the current user from the DB
         model.addAttribute("currentUser", userDao.findOne((long)3));
-        model.addAttribute("name", "jacob");
-        model.addAttribute("tickets", ticketDao.findAll());
-        model.addAttribute("users", userDao.findAll());
+
+        // get the tickets and sort them
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        for (Ticket t : ticketDao.findAll()){
+            tickets.add(t);
+        }
+        Collections.sort(tickets);
+        model.addAttribute("tickets", tickets);
+
+        // get the users and sort them
+        List<User> users = new ArrayList<User>();
+        for (User u : userDao.findAll()){
+            users.add(u);
+        }
+        Collections.sort(users);
+        model.addAttribute("users", users);
+
+        // render the template
         return model;
     }
 
@@ -55,7 +68,7 @@ public class HomeController {
         ticketDao.save(new Ticket(7, new Date(2017, 7, 12), testUser3));
         ticketDao.save(new Ticket(8, new Date(2017, 5, 11), testUser));
         ticketDao.save(new Ticket(5, new Date(2017, 1, 30), testUser2));
-        ticketDao.save(new Ticket(5, new Date(2016, 9, 25), testUser));
+        ticketDao.save(new Ticket(5, new Date(2017, 9, 25), testUser));
         ticketDao.save(new Ticket(9, new Date(2017, 1, 6), testUser2));
         return;
     }

@@ -17,8 +17,12 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Comparable {
 
+    @Override
+    public int compareTo(Object o) {
+        return this.userName.compareTo(((User)o).userName);
+    }
     // ------------------------
     // PRIVATE FIELDS
     // ------------------------
