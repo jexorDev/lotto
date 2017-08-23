@@ -14,13 +14,13 @@ import javax.transaction.Transactional;
  * @author des
  */
 @Transactional
-public interface TicketDao extends CrudRepository<Ticket, Long> {
+public interface PickDao extends CrudRepository<Pick, Long> {
 
     /**
      * Return the user having the passed email or null if no user is found.
      *
      * @param email the user email.
      */
-    //public Ticket getAll();
+    //public Pick getAll();
 
-} // class TicketDao
+} // class PickDao

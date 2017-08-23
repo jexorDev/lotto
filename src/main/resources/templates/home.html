@@ -57,28 +57,32 @@
     p.pick .label{
         margin-right:3px;
     }
+    .pick-number{
+        display:inline-block;
+        width:27px;
+    }
 </style>
 <body>
 
     <div class="container-fluid">
         <div class="row">
-            <div th:include="header :: header"/>
+            <div class="col-md-12" th:include="header :: header"/>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <div th:include="debts :: current "/>
-                <div th:include="addTicket :: new"/>
-                <div th:include="addPayment :: new"/>
+                <div class="well" th:include="debts :: current "/>
+                <div class="well" th:include="addTicket :: new"/>
+                <div class="well" th:include="addPayment :: new"/>
             </div>
             <div class="col-md-9">
-                <div th:include="tickets :: tickets"/>
-                <div th:include="history :: history"/>
+                <div class="row"><div th:include="tickets :: tickets"></div></div>
+                <div class="row"><div th:include="history :: history"></div></div>
             </div>
         </div>
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" />
-<script src="js/bootstrap.min.js" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 </html>
