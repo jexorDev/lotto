@@ -66,13 +66,13 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12" th:include="header :: header"/>
+            <div th:include="header :: header"/>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <div class="well" th:include="debts :: current "/>
-                <div class="well" th:include="addTicket :: new"/>
-                <div class="well" th:include="addPayment :: new"/>
+                <div th:include="debts :: current "/>
+                <div th:include="addTicket :: new"/>
+                <div th:include="addPayment :: new"/>
             </div>
             <div class="col-md-9">
                 <div class="row"><div th:include="tickets :: tickets"></div></div>
