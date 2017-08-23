@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="new"> <!-- contents render, but this div disappears -->
-    <h2 class="media-heading">Add Ticket</h2>
+<div th:fragment="new" > <!-- contents render, but this div disappears -->
+    <div class="panel panel-default">
+    <div class="panel-heading">Add Ticket</div>
+    <div class="panel-body">
 
     <label class="ticket">Purchaser:</label>
     <b th:inline="text">[[${currentUser.userName}]]</b>
@@ -61,9 +63,12 @@
     <button type="button">-</button>
     <br/>
 
+
+
     <label class="ticket"/>
     <button type="button">Add Ticket</button>
-
+    </div>
+    </div>
 </div>
 
 </body>

@@ -5,6 +5,7 @@ import com.lotto.models.TicketDao;
 import com.lotto.models.User;
 import com.lotto.models.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

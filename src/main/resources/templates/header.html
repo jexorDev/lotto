@@ -2,13 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="header"> <!-- contents render, but this div disappears -->
-    <div class="col-md-6">
-        <h1 class="pale">S.A.D. Lotto</h1>
-    </div>
-    <div id="header-options" class="col-md-6 right">
-        <label th:inline="text" class="pale">Welcome, [[${currentUser.userName}]]!</label>
-    </div>
+<div th:fragment="header">
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Sad Lotto</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <label th:inline="text" class="pale"></label>
+            <li><p class="navbar-text" th:inline="text">Welcome, [[${currentUser.userName}]]!</p></li>
+            <li><a href="#">Sign out</a></li>
+        </ul>
+    </nav>
 </div>
 
 </body>

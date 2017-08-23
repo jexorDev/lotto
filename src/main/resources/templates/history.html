@@ -5,46 +5,45 @@
 <div th:fragment="history"> <!-- contents render, but this div disappears -->
     <div class="h2 media-heading pale">Transaction History</div>
 
-    <div class="row">
-        <div class="col-md-2">Date</div>
-        <div class="col-md-6">Description</div>
-        <div class="col-md-2">vs Anthony</div>
-        <div class="col-md-2">vs Sean</div>
+    <div class="well well-sm">
+
+    <table class="table table-striped">
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>vs Anthony</th>
+            <th>vs Sean</th>
+        </tr>
+
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+        <div th:replace="history :: record" />
+
+    </table>
+
     </div>
 
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
-    <div th:replace="history :: record" />
     <p class="label label-info"><a href="#">Show All</a></p>
 
 </div>
 
-<div th:fragment="record" class="row">
-    <div class="col-md-2">2017-08-01</div>
-    <div class="col-md-6">Someone paid $NN to Otherperson</div>
-    <div class="col-md-2">+11</div>
-    <div class="col-md-2">-7</div>
+<div th:fragment="record">
+    <tr>
+        <td>2017/08/01</td>
+        <td>Someone paid $xx to otherperson</td>
+        <td>+11</td>
+        <td>-7</td>
+    </tr>
 </div>
 
 </body>

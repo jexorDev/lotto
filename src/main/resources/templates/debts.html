@@ -3,12 +3,16 @@
 <body>
 
 <div th:fragment="current"> <!-- contents render, but this div disappears -->
-    <h2 class="media-heading">Current Debts</h2>
-    <ul>
-        <li>Dustin owes $7 to Sean.</li>
-        <li>Anthony owes $11 to Dustin.</li>
-        <li>Sean owes $4 to Anthony.</li>
-    </ul>
+    <div class="panel panel-default">
+        <div class="panel-heading">Current Debts</div>
+        <div class="panel-body">
+            <ul>
+                <li>Dustin owes $7 to Sean.</li>
+                <li>Anthony owes $11 to Dustin.</li>
+                <li>Sean owes $4 to Anthony.</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 </body>

@@ -3,7 +3,9 @@
 <body>
 
 <div th:fragment="new"> <!-- contents render, but this div disappears -->
-    <h2 class="media-heading">Add Payment</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Payment</div>
+        <div class="panel-body">
 
     <label class="payment">From:</label>
     <select class="payment">
@@ -29,6 +31,8 @@
 
     <label class="payment"/>
     <button class="payment" type="button">Add Payment</button>
+        </div>
+    </div>
 </div>
 
 </body>
