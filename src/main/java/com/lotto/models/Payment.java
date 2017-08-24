@@ -53,8 +53,6 @@ public class Payment  implements Comparable {
 
     public Payment() {}
 
-    public Payment(long id) { this.id = id; }
-
     public Payment(User payer, User recipient, Date paymentDate, Integer amount) {
         this.payer = payer;
         this.recipient = recipient;

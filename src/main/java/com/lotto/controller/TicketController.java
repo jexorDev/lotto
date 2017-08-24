@@ -38,7 +38,7 @@ public class TicketController {
     public String create(Integer cost, Date purchaseDate, @RequestParam(value="purchaserUser") User purchaserUser) {
         Ticket ticket = null;
         try {
-            ticket = new Ticket(cost, purchaseDate, purchaserUser);
+            //ticket = new Ticket(cost, purchaseDate, purchaserUser);
             ticketDao.save(ticket);
         }
         catch (Exception ex) {

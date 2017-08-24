@@ -17,7 +17,7 @@ public class HomeController {
     //Method-level request mapping appends its value onto the end of the class-level annotation
     //@RequestMapping(value = "shipwrecks", method = RequestMethod.GET)
     public Model home(Model model) {
-        loadData();
+        //loadData();
 
         // TODO remove this and make history.processTransactions be dynamic
         User dustin = userDao.findOne((long)1);
@@ -93,7 +93,9 @@ public class HomeController {
                 picks.add(randomPick());
             }
 
-            ticketDao.save(new Ticket(cost, new Date(year, month, day), user));
+            List<Player> players = new ArrayList<Player>();
+
+            ticketDao.save(new Ticket(cost, new Date(year, month, day), user, picks, players));
         }
 
         /*

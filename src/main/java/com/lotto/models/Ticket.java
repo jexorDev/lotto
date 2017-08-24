@@ -58,12 +58,12 @@ public class Ticket implements Comparable {
 
     public Ticket() { }
 
-    // TODO this constructor needs to take all properties of a ticket
-    public Ticket(Integer cost, Date purchaseDate, User purchaserUser) {
+    public Ticket(Integer cost, Date purchaseDate, User purchaserUser, Collection<Pick> picks, Collection<Player> players) {
         this.cost = cost;
         this.purchaseDate = purchaseDate;
         this.purchaserUser = purchaserUser;
-
+        this.picks = picks;
+        this.players = players;
     }
 
     public Iterable<Pick> GetPicks(){
@@ -129,6 +129,7 @@ public class Ticket implements Comparable {
         return cal.getTime();
     }
 
+    // TODO make this actually get the players
     public String GetPlayers(){
         if (purchaserUser.getId() == 1){
             return "Anthony";
