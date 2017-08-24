@@ -48,12 +48,11 @@ public class Ticket implements Comparable {
     private Boolean powerPlay;
 
     // The list of picks associated with the ticket
-    @NotNull
     @OneToMany(mappedBy="ticket")
     private Collection<Pick> picks;
 
-    // The list of picks associated with the ticket
-    @OneToMany
+    // The list of players associated with the ticket
+    @OneToMany(mappedBy="ticket")
     private Collection<Player> players;
 
     // ------------------------
@@ -62,12 +61,12 @@ public class Ticket implements Comparable {
 
     public Ticket() { }
 
-    public Ticket(Integer cost, Date purchaseDate, Boolean powerPlay, User purchaserUser, Collection<Pick> picks) {
+    public Ticket(Integer cost, Date purchaseDate, Boolean powerPlay, User purchaserUser) {
         this.cost = cost;
         this.purchaseDate = purchaseDate;
         this.powerPlay = powerPlay;
         this.purchaserUser = purchaserUser;
-        this.picks = picks;
+        this.picks = new ArrayList<Pick>();
         this.players = new ArrayList<Player>();
     }
 
@@ -138,19 +137,31 @@ public class Ticket implements Comparable {
         return cal.getTime();
     }
 
-    public void addPlayers(List<Player> players) {
-        this.players.addAll(players);
+    public void addPlayers(Iterable<Player> newPlayers) {
+        for( Player p : newPlayers){
+            players.add(p);
+        }
+    }
+    public void addPicks(Iterable<Pick> newPicks) {
+        for( Pick p : newPicks){
+            picks.add(p);
+        }
     }
 
     // TODO make this actually get the players
     public String GetPlayers(){
-        if (purchaserUser.getId() == 1){
-            return "Anthony";
-        } else if (purchaserUser.getId() == 2) {
-            return "Dustin and Anthony";
-        } else {
-            return "Sean, Dustin, and Anthony";
+        String playerString = purchaserUser.getUserName();
+
+        Object[] playersArray = players.toArray();
+        if (playersArray.length > 0){
+            for (int i = 0; i < playersArray.length - 1; i++) {
+                playerString += ", " + ((Player)playersArray[i]).getUser().getUserName();
+            }
+            playerString += playerString.contains(",") ? "," : "";
+            playerString += " and " + ((Player)playersArray[playersArray.length - 1]).getUser().getUserName();
         }
+
+        return playerString;
     }
 
 } // class User

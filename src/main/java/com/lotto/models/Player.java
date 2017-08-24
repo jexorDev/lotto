@@ -32,7 +32,7 @@ public class Player implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull
-    private User player;
+    private User user;
 
 
     // ------------------------
@@ -41,10 +41,12 @@ public class Player implements Serializable {
 
     public Player() { }
 
-    public Player(Ticket ticket, User player) {
+    public Player(Ticket ticket, User user) {
         this.ticket = ticket;
-        this.player = player;
+        this.user = user;
     }
+
+    public long getId() { return id; }
 
     public Ticket getTicket() {
         return ticket;
@@ -54,12 +56,12 @@ public class Player implements Serializable {
         this.ticket = ticket;
     }
 
-    public User getPlayer() {
-        return player;
+    public User getUser() {
+        return user;
     }
 
-    public void setPlayer(User player) {
-        this.player = player;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 } // class Player
