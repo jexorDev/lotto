@@ -44,7 +44,7 @@ public class TicketController {
         catch (Exception ex) {
             return "Error creating the ticket: " + ex.toString();
         }
-        return "Ticket succesfully created! (id = " + ticket.getId() + ")";
+        return "Ticket successfully created! (id = " + ticket.getId() + ")";
     }
 
     /**
