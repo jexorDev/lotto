@@ -14,7 +14,7 @@ public class History {
 
     private List<Transaction> transactions;
 
-    private Double balance;
+    private Integer balance;
 
     // TODO remove when the user is an object on the payment object
     private UserDao userDao;
@@ -25,7 +25,7 @@ public class History {
         this.transactions = new ArrayList<Transaction>();
     };
 
-    public void processTransactions(User activeUser, User relatedUser, Double runningBalance) {
+    public void processTransactions(User activeUser, User relatedUser, Integer runningBalance) {
         this.balance = runningBalance;
 
         sortTransactions();
@@ -66,14 +66,12 @@ public class History {
 
     public void AddPayment(Payment payment){
         // TODO replace the INT object with a real User object
-        User payer = userDao.findOne((long)payment.getPayerId());
-        User recipient = userDao.findOne((long)payment.getRecipientId());
         Date date = payment.getPaymentDate();
-        Double amount = payment.getAmount();
+        Integer amount = payment.getAmount();
 
-        String description = String.format("%1$s paid $%2$.2f to %3$s.", payer.getUserName(), amount, recipient.getUserName());
+        String description = String.format("%1$s paid $%2$d to %3$s.", payment.getPayer().getUserName(), amount, payment.getRecipient().getUserName());
 
-        Transaction transaction = new Transaction(date, description, payer, recipient, amount);
+        Transaction transaction = new Transaction(date, description, payment.getPayer(), payment.getRecipient(), amount);
         transactions.add(transaction);
     }
 
@@ -88,8 +86,8 @@ public class History {
         Date date = ticket.getPurchasedate();
 
         // TODO replace this with an actual calculation of how many players there are
-        Double playerCount = 2.0 + 1.0; // 2 players + 1 purchaser
-        Double amount = ticket.getCost() / playerCount;
+        Integer playerCount = 2 + 1; // 2 players + 1 purchaser
+        Integer amount = ticket.getCost() / playerCount;
 
         // TODO replace with a for loop of each player.
         // this is just making a list of players that assumes everyone other than the purchaser is a player

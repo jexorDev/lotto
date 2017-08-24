@@ -29,13 +29,15 @@ public class Payment  implements Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    // ID of the payer
+    // the payer
     @NotNull
-    private Integer payerId;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User payer;
 
-    // ID of the recipient
+    // the recipient
     @NotNull
-    private Integer recipientId;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User recipient;
 
     // Date of the payment
     @NotNull
@@ -43,7 +45,7 @@ public class Payment  implements Comparable {
 
     // Amount of the payment
     @NotNull
-    private Double amount;
+    private Integer amount;
 
     // ------------------------
     // PUBLIC METHODS
@@ -53,9 +55,9 @@ public class Payment  implements Comparable {
 
     public Payment(long id) { this.id = id; }
 
-    public Payment(Integer payerId, Integer recipientId, Date paymentDate, Double amount) {
-        this.payerId = payerId;
-        this.recipientId = recipientId;
+    public Payment(User payer, User recipient, Date paymentDate, Integer amount) {
+        this.payer = payer;
+        this.recipient = recipient;
         this.paymentDate = paymentDate;
         this.amount = amount;
     }
@@ -66,21 +68,21 @@ public class Payment  implements Comparable {
 
     public void setId(long id) { this.id = id; }
 
-    public Integer getPayerId() { return payerId; }
+    public User getPayer() { return payer; }
 
-    public void setPayerId(Integer payerId) { this.payerId = payerId; }
+    public void setPayer(User payer) { this.payer = payer; }
 
-    public Integer getRecipientId() { return recipientId; }
+    public User getRecipient() { return recipient; }
 
-    public void setRecipientId(Integer recipientId) { this.recipientId = recipientId; }
+    public void setRecipient(User recipient) { this.recipient = recipient; }
 
     public Date getPaymentDate() { return paymentDate; }
 
     public void setPaymentDate(Date paymentDate) { this.paymentDate = paymentDate ;}
 
-    public Double getAmount() { return amount; }
+    public Integer getAmount() { return amount; }
 
-    public void setAmount(Double amount) { this.amount = amount; }
+    public void setAmount(Integer amount) { this.amount = amount; }
 
     public Date GetJavaDate() {
         Date javaDate = new Date(paymentDate.getTime());

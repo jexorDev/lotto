@@ -22,8 +22,8 @@ public class Transaction implements Comparable {
     private String description;
     private User payer;
     private User recipient;
-    private Double amount;
-    private Double runningTotal;
+    private Integer amount;
+    private Integer runningTotal;
     private Boolean isCredit;
     private Boolean isDebt;
     private Boolean display = true;
@@ -34,7 +34,7 @@ public class Transaction implements Comparable {
 
     /*public Transaction() {}*/
 
-    public Transaction(Date transactionDate, String description, User payer, User recipient, Double amount) {
+    public Transaction(Date transactionDate, String description, User payer, User recipient, Integer amount) {
         this.transactionDate = transactionDate;
         this.description = description;
         this.payer = payer;
@@ -59,13 +59,13 @@ public class Transaction implements Comparable {
 
     public void setRecipient(User recipient) { this.recipient = recipient; };
 
-    public Double getAmount() { return amount; }
+    public Integer getAmount() { return amount; }
 
-    public void setAmount(Double amount) { this.amount = amount; }
+    public void setAmount(Integer amount) { this.amount = amount; }
 
-    public Double getRunningTotal() { return runningTotal; }
+    public Integer getRunningTotal() { return runningTotal; }
 
-    public void setRunningTotal(Double runningTotal) { this.runningTotal = runningTotal; }
+    public void setRunningTotal(Integer runningTotal) { this.runningTotal = runningTotal; }
 
     public Boolean getIsCredit() { return isCredit; }
 
@@ -75,7 +75,7 @@ public class Transaction implements Comparable {
 
     public void setIsDebt(Boolean isDebt){ SetProcessingInfo(runningTotal, !isDebt); }
 
-    public void SetProcessingInfo(Double runningTotal, Boolean isCredit){
+    public void SetProcessingInfo(Integer runningTotal, Boolean isCredit){
         this.runningTotal = runningTotal;
         this.isCredit = isCredit;
         this.isDebt = !isCredit;

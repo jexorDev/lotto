@@ -38,7 +38,7 @@ public class HomeController {
         History history = new History(userDao);
         history.AddPayments(paymentDao.findAll());
         history.AddTickets(tickets);
-        history.processTransactions(dustin, anthony, 5.0);
+        history.processTransactions(dustin, anthony, 5);
         model.addAttribute("history", history);
 
         // get the users and sort them
@@ -69,26 +69,26 @@ public class HomeController {
     private PaymentDao paymentDao;
 
     private void loadData(){
-        User testUser = new User("Dustin",true, "Welcome123", "", null);
-        userDao.save(testUser);
-        User testUser2 = new User("Anthony",true, "Welcome123", "", null);
-        userDao.save(testUser2);
-        User testUser3 = new User("Sean",true, "Welcome123", "", null);
-        userDao.save(testUser3);
+        User dustin = new User("Dustin",true, "Welcome123", "", null);
+        userDao.save(dustin);
+        User anthony = new User("Anthony",true, "Welcome123", "", null);
+        userDao.save(anthony);
+        User sean = new User("Sean",true, "Welcome123", "", null);
+        userDao.save(sean);
 
-        ticketDao.save(new Ticket(7, new Date(2017, 3, 28), testUser2));
-        ticketDao.save(new Ticket(7, new Date(2017, 7, 12), testUser3));
-        ticketDao.save(new Ticket(8, new Date(2017, 5, 11), testUser));
-        ticketDao.save(new Ticket(5, new Date(2017, 1, 30), testUser2));
-        ticketDao.save(new Ticket(5, new Date(2017, 9, 25), testUser));
-        ticketDao.save(new Ticket(9, new Date(2017, 1, 6), testUser2));
+        ticketDao.save(new Ticket(6, new Date(2017, 3, 28), anthony));
+        ticketDao.save(new Ticket(3, new Date(2017, 7, 12), sean));
+        ticketDao.save(new Ticket(9, new Date(2017, 5, 11), dustin));
+        ticketDao.save(new Ticket(15, new Date(2017, 1, 30), anthony));
+        ticketDao.save(new Ticket(12, new Date(2017, 9, 25), dustin));
+        ticketDao.save(new Ticket(9, new Date(2017, 1, 6), anthony));
 
-        paymentDao.save(new Payment(3, 2, new Date(2017,1,6), 3.00));
-        paymentDao.save(new Payment(2, 1, new Date(2017,2,6), 3.00));
-        paymentDao.save(new Payment(2, 3, new Date(2017,2,6), 2.00));
-        paymentDao.save(new Payment(1, 2, new Date(2017,3,6), 5.00));
-        paymentDao.save(new Payment(2, 3, new Date(2017,4,6), 3.00));
-        paymentDao.save(new Payment(2, 1, new Date(2017,7,6), 6.00));
+        paymentDao.save(new Payment(sean, anthony, new Date(2017,1,6), 3));
+        paymentDao.save(new Payment(anthony, dustin, new Date(2017,2,6), 3));
+        paymentDao.save(new Payment(anthony, sean, new Date(2017,2,6), 2));
+        paymentDao.save(new Payment(dustin, anthony, new Date(2017,3,6), 5));
+        paymentDao.save(new Payment(anthony, sean, new Date(2017,4,6), 3));
+        paymentDao.save(new Payment(anthony, dustin, new Date(2017,7,6), 6));
         return;
     }
 

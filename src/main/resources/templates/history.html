@@ -34,8 +34,8 @@
 <tr th:fragment="record">
     <td th:text="${#dates.format(transaction.GetJavaDate(), 'MM/dd/yyyy')}"></td>
     <td th:text="${transaction.description}"></td>
-    <td th:inline="text" th:classappend="${transaction.isDebt} ? 'debt' : 'credit'">$ [[${#numbers.formatDecimal(transaction.amount, 0, 'COMMA', 2, 'POINT')}]]</td>
-    <td th:inline="text" th:classappend="${transaction.runningTotal} > 0 ? 'debt' : 'credit'">$ [[${#numbers.formatDecimal(transaction.runningTotal, 0, 'COMMA', 2, 'POINT')}]]</td>
+    <td th:inline="text" th:classappend="${transaction.isDebt} ? 'debt' : 'credit'">$ [[${transaction.amount}]]</td>
+    <td th:inline="text" th:classappend="${transaction.runningTotal} > 0 ? 'debt' : 'credit'">$ [[${transaction.runningTotal}]]</td>
 </tr>
 
 </body>
