@@ -3,6 +3,9 @@ package com.lotto.models;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A DAO for the entity Ticket is simply created by extending the CrudRepository
@@ -21,6 +24,6 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
      *
      * @param email the user email.
      */
-    //public Ticket getAll();
+    List<Ticket> findByPurchaseDateAfter(Date date);
 
 } // class TicketDao

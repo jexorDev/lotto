@@ -6,10 +6,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">Current Debts</div>
         <div class="panel-body">
-            <ul>
-                <li>Dustin owes $7 to Sean.</li>
-                <li>Anthony owes $11 to Dustin.</li>
-                <li>Sean owes $4 to Anthony.</li>
+            <ul th:each="summary : ${totalSummary}">
+               <li th:text="${summary.getPredicament()}"></li>
             </ul>
         </div>
     </div>
