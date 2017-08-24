@@ -17,10 +17,15 @@ public class HomeController {
     //Method-level request mapping appends its value onto the end of the class-level annotation
     //@RequestMapping(value = "shipwrecks", method = RequestMethod.GET)
     public Model home(Model model) {
-        loadTickets();
+        loadData();
+
+        // TODO remove this and make history.processTransactions be dynamic
+        User dustin = userDao.findOne((long)1);
+        User anthony = userDao.findOne((long)2);
+        User sean = userDao.findOne((long)3);
 
         // TODO replace the "3" to get the current user from the DB
-        model.addAttribute("currentUser", userDao.findOne((long)3));
+        model.addAttribute("currentUser", dustin);
 
         // get the tickets and sort them
         List<Ticket> tickets = new ArrayList<Ticket>();
@@ -29,12 +34,6 @@ public class HomeController {
         }
         Collections.sort(tickets);
         model.addAttribute("tickets", tickets);
-
-        // TODO remove this and make history.processTransactions be dynamic
-        User dustin = userDao.findOne((long)1);
-        User anthony = userDao.findOne((long)2);
-        User sean = userDao.findOne((long)3);
-
 
         History history = new History(userDao);
         history.AddPayments(paymentDao.findAll());
@@ -69,7 +68,7 @@ public class HomeController {
     @Autowired
     private PaymentDao paymentDao;
 
-    private void loadTickets(){
+    private void loadData(){
         User testUser = new User("Dustin",true, "Welcome123", "", null);
         userDao.save(testUser);
         User testUser2 = new User("Anthony",true, "Welcome123", "", null);

@@ -84,6 +84,26 @@ public class History {
     }
 
     public void AddTicket(Ticket ticket){
+        User payer = ticket.getPurchaserUser();
+        Date date = ticket.getPurchasedate();
 
+        // TODO replace this with an actual calculation of how many players there are
+        Double playerCount = 2.0 + 1.0; // 2 players + 1 purchaser
+        Double amount = ticket.getCost() / playerCount;
+
+        // TODO replace with a for loop of each player.
+        // this is just making a list of players that assumes everyone other than the purchaser is a player
+        List<User> players = new ArrayList<User>();
+        for (int i = 1; i < 4; i++) {
+            if (i != payer.getId()){
+                players.add(userDao.findOne((long)i));
+            }
+        }
+
+        for (User recipient : players) {
+            String description = String.format("%1$s bought a ticket for %2$s.", payer.getUserName(), recipient.getUserName());
+            Transaction transaction = new Transaction(date, description, payer, recipient, amount);
+            transactions.add(transaction);
+        }
     }
 }

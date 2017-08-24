@@ -67,6 +67,14 @@ public class Transaction implements Comparable {
 
     public void setRunningTotal(Double runningTotal) { this.runningTotal = runningTotal; }
 
+    public Boolean getIsCredit() { return isCredit; }
+
+    public void setIsCredit(Boolean isCredit){ SetProcessingInfo(runningTotal, isCredit); }
+
+    public Boolean getIsDebt() { return isDebt; }
+
+    public void setIsDebt(Boolean isDebt){ SetProcessingInfo(runningTotal, !isDebt); }
+
     public void SetProcessingInfo(Double runningTotal, Boolean isCredit){
         this.runningTotal = runningTotal;
         this.isCredit = isCredit;
