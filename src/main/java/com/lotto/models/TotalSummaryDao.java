@@ -3,6 +3,7 @@ package com.lotto.models;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * A DAO for the entity TotalSummary is simply created by extending the CrudRepository
@@ -16,5 +17,6 @@ import javax.transaction.Transactional;
 @Transactional
 public interface TotalSummaryDao extends CrudRepository<TotalSummary, Long> {
 
-
+    TotalSummary findByUserAAndUserB(User userA, User userB);
+    List<TotalSummary> findByUserA(User userA);
 }

@@ -1,5 +1,6 @@
 package com.lotto.controller;
 
+import com.lotto.helpers.TotalSummaryHelper;
 import com.lotto.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +30,14 @@ public class HomeController {
 
         // get the tickets and sort them
         List<Ticket> tickets = new ArrayList<Ticket>();
-        for (Ticket t : ticketDao.findAll()){
-            tickets.add(t);
+        Date today = new Date();
+        Calendar myCalendar = Calendar.getInstance();
+        myCalendar.add(Calendar.DAY_OF_MONTH, -5);
+        for (Ticket t : ticketDao.findByPurchaseDateAfter(myCalendar.getTime())){
+            // Get tickets with a draw date that's in the future
+            if (t.GetDrawDate().compareTo(today) == 1) {
+                tickets.add(t);
+            }
         }
         Collections.sort(tickets);
         model.addAttribute("tickets", tickets);
@@ -48,6 +55,12 @@ public class HomeController {
         }
         Collections.sort(users);
         model.addAttribute("users", users);
+
+        List<TotalSummary> totalSummary = new ArrayList<TotalSummary>();
+        for (TotalSummary t : totalSummaryDao.findByUserA(anthony)) {
+            totalSummary.add(t);
+        }
+        model.addAttribute("totalSummary", totalSummary);
 
         // render the template
         return model;
@@ -113,10 +126,9 @@ public class HomeController {
         paymentDao.save(new Payment(anthony, sean, randomDate(), 3));
         paymentDao.save(new Payment(anthony, dustin, randomDate(), 6));
 
-        totalSummaryDao.save(new TotalSummary(dustin, anthony, 12));
-        totalSummaryDao.save(new TotalSummary(anthony, dustin, -12));
-        totalSummaryDao.save(new TotalSummary(dustin, sean, 6));
-        totalSummaryDao.save(new TotalSummary(sean, dustin, -6));
+        TotalSummaryHelper totalSummaryHelper = new TotalSummaryHelper(totalSummaryDao);
+        totalSummaryHelper.createOrUpdateTotalSummary(dustin, anthony, -12);
+        totalSummaryHelper.createOrUpdateTotalSummary(dustin, sean, -6);
 
         return;
     }
