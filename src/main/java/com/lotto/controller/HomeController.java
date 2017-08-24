@@ -29,6 +29,7 @@ public class HomeController {
             if (u.getUserName().equalsIgnoreCase(username)) {
                 currentUser = u;
             } else {
+                // TODO add this to the template and use it for the history dropdown
                 nextUser = u; // any other user, used for the history
             }
             allUsers.add(u);
@@ -79,6 +80,7 @@ public class HomeController {
     @Autowired
     private PlayerDao playerDao;
 
+    // TODO: delete this while removing random picks
     private void loadData(){
         playerDao.deleteAll();
         pickDao.deleteAll();
@@ -111,7 +113,6 @@ public class HomeController {
             allUsers.add(sean);
         }
 
-        // TODO: delete this while removing random picks
         for (int i = 0; i <= randomNumber(5) + 3; i++) {
             int cost = randomNumber(5) * 3;
             long userId = (long)randomNumber(3);

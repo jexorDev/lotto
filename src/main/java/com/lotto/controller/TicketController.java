@@ -1,8 +1,6 @@
 package com.lotto.controller;
 
-import com.lotto.models.Ticket;
-import com.lotto.models.TicketDao;
-import com.lotto.models.User;
+import com.lotto.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +38,26 @@ public class TicketController {
         try {
             //ticket = new Ticket(cost, purchaseDate, purchaserUser);
             ticketDao.save(ticket);
+
+            // This is how it's done in the initial data load. This is likely the same way tickets will be created here.
+            /*
+            // save the ticket without picks or players
+            Ticket ticket = new Ticket(cost, randomDate(), powerPlay, user);
+            ticketDao.save(ticket);
+
+            // use the ticket to create and save picks
+            Iterable<Pick> picks = randomPicks(ticket);
+            pickDao.save(picks);
+
+            // use the ticket to create and save players
+            Iterable<Player> players = randomPlayers(ticket, allUsers);
+            playerDao.save(players);
+
+            // add picks and players to the ticket. Save again
+            ticket.addPicks(picks);
+            ticket.addPlayers(players);
+            ticketDao.save(ticket);
+            */
         }
         catch (Exception ex) {
             return "Error creating the ticket: " + ex.toString();
