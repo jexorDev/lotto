@@ -65,7 +65,8 @@ public class Pick {
         this.id = id;
     }
 
-    public Pick(Integer pick1, Integer pick2, Integer pick3, Integer pick4, Integer pick5, Integer powerBall){
+    public Pick(Ticket ticket, Integer pick1, Integer pick2, Integer pick3, Integer pick4, Integer pick5, Integer powerBall){
+        this.ticket = ticket;
         this.pick1 = pick1;
         this.pick2 = pick2;
         this.pick3 = pick3;

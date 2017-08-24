@@ -21,7 +21,7 @@ public class User implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return this.userName.compareTo(((User)o).userName);
+        return this.userName.compareTo(((User)o).getUserName());
     }
     // ------------------------
     // PRIVATE FIELDS

@@ -85,6 +85,9 @@ public class HomeController {
     private TotalSummaryDao totalSummaryDao;
 
     @Autowired
+    private PickDao pickDao;
+
+    @Autowired
     private PlayerDao playerDao;
 
     private void loadData(){
@@ -92,31 +95,51 @@ public class HomeController {
         ticketDao.deleteAll();
         paymentDao.deleteAll();
         totalSummaryDao.deleteAll();
-        userDao.deleteAll();
 
-        User dustin = new User("Dustin",true, "Welcome123", "", null);
-        userDao.save(dustin);
-        User anthony = new User("Anthony",true, "Welcome123", "", null);
-        userDao.save(anthony);
-        User sean = new User("Sean",true, "Welcome123", "", null);
-        userDao.save(sean);
+        User dustin;
+        User anthony;
+        User sean;
         List<User> allUsers = new ArrayList<User>();
-        allUsers.add(dustin);
-        allUsers.add(anthony);
-        allUsers.add(sean);
+
+        if (userDao.exists((long)1)) { // tables are old and already have user data
+            for (User u : userDao.findAll()){ allUsers.add(u); }
+
+            dustin = userDao.findOne((long)1);
+            anthony = userDao.findOne((long)2);
+            sean = userDao.findOne((long)3);
+        } else { // tables are brand new. You need to add the users for the first time.
+            dustin = new User("Dustin",true, "Welcome123", "", null);
+            anthony = new User("Anthony",true, "Welcome123", "", null);
+            sean = new User("Sean",true, "Welcome123", "", null);
+
+            userDao.save(dustin);
+            userDao.save(anthony);
+            userDao.save(sean);
+
+            allUsers.add(dustin);
+            allUsers.add(anthony);
+            allUsers.add(sean);
+        }
 
         // TODO: delete this while removing random picks
-        for (int i = 0; i <= randomNumber(10); i++) {
+        for (int i = 0; i <= randomNumber(5) + 3; i++) {
             int cost = randomNumber(5) * 3;
             long userId = (long)randomNumber(3);
             User user = userDao.findOne(userId);
             Boolean powerPlay = randomNumber(2) == 2;
 
-            Ticket ticket = new Ticket(cost, randomDate(), powerPlay, user, randomPicks());
-            Iterable<Player> players = randomPlayers(ticket, allUsers);
-
+            Ticket ticket = new Ticket(cost, randomDate(), powerPlay, user);
             ticketDao.save(ticket);
+
+            Iterable<Pick> picks = randomPicks(ticket);
+            pickDao.save(picks);
+
+            Iterable<Player> players = randomPlayers(ticket, allUsers);
             playerDao.save(players);
+
+            ticket.addPicks(picks);
+            ticket.addPlayers(players);
+            ticketDao.save(ticket);
         }
 
         paymentDao.save(new Payment(sean, anthony, randomDate(), 3));
@@ -133,7 +156,8 @@ public class HomeController {
         return;
     }
 
-    private List<Player> randomPlayers(Ticket ticket, List<User> allUsers){
+    // TODO: delete this while removing random picks
+    private List<Player> randomPlayers(Ticket ticket, Iterable<User> allUsers){
         List<Player> players = new ArrayList<Player>();
         List<User> possibleUsers = new ArrayList<User>();
         Integer playerCount = randomNumber(3) - 1;
@@ -158,18 +182,17 @@ public class HomeController {
     }
 
     // TODO: delete this while removing random picks
-    private List<Pick> randomPicks(){
+    private List<Pick> randomPicks(Ticket ticket){
         List<Pick>picks = new ArrayList<Pick>();
-                for (int j = 0; j <= randomNumber(5); j++) {
-            picks.add(randomPick());
+        for (int j = 0; j <= randomNumber(5); j++) {
+            picks.add(randomPick(ticket));
         }
         return picks;
     }
 
-
     // TODO: delete this while removing random picks
     private Date randomDate(){
-        int year = randomNumber(2) + 2015;
+        int year = 2017;
         int month = randomNumber(12) - 1;
         int day = randomNumber(28);
 
@@ -177,7 +200,7 @@ public class HomeController {
     }
 
     // TODO: delete this while removing random picks
-    private Pick randomPick(){
+    private Pick randomPick(Ticket ticket){
         ArrayList<Integer> picks = new ArrayList<Integer>();
 
         int needed = 5;
@@ -192,7 +215,7 @@ public class HomeController {
 
         int powerBall = randomNumber(26);
 
-        return new Pick(picks.get(0), picks.get(1), picks.get(2), picks.get(3), picks.get(4), powerBall);
+        return new Pick(ticket, picks.get(0), picks.get(1), picks.get(2), picks.get(3), picks.get(4), powerBall);
     }
 
     // TODO: delete this while removing random picks
