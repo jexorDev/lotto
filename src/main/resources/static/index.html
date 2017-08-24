@@ -2,9 +2,44 @@
 <html>
 
 <head>
-<meta http-equiv="refresh" content="0;url=/home" />
+<link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-Eek! You found us! Go to the home page. Click <a href="/home">here</a> to go to the home page.
+<div class="row" id="row">
+    <div class="panel panel-default col-lg-6" id="panel">
+        <div class="panel-title">Welcome to SAD Lotto! Please enter your username</div>
+        <div class="panel-body">
+            <div class="input-group">
+                <input type="text" id="user" class="form-control" placeholder="Enter username">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" value="submit" onclick="goToPage();">Go!</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #row {
+        text-align: center;
+    }
+
+    #panel {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+        float: none;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+</style>
+
 </body>
 </html>
+
+<script>
+    function goToPage() {
+        var user = document.getElementById('user').value;
+        window.location = window.location.href + "/home?user=" + user;
+    }
+</script>
