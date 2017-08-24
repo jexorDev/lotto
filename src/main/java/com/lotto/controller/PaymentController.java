@@ -15,8 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 public class PaymentController {
-    // TODO: value of request mapping
-    @RequestMapping(value="", method=POST )
+    @RequestMapping(value="/payment/create", method=POST )
     @ResponseBody
     public String create(@RequestParam(value="payerID") User payerID, @RequestParam(value="recipientID") User recipientID, Date paymentDate, Integer amount) {
         Payment payment;
