@@ -54,51 +54,12 @@ public class Ticket implements Comparable {
 
     public Ticket() { }
 
-    public Ticket(long id) {
-        this.id = id;
-    }
-
+    // TODO this constructor needs to take all properties of a ticket
     public Ticket(Integer cost, Date purchaseDate, User purchaserUser) {
         this.cost = cost;
         this.purchaseDate = purchaseDate;
         this.purchaserUser = purchaserUser;
 
-        // TODO: delete this while removing random picks
-        this.picks = new ArrayList<Pick>();
-        for (int i = 0; i <= randomNumber(5); i++) {
-            picks.add(randomPick());
-        }
-    }
-
-    // TODO: delete this while removing random picks
-    private Pick randomPick(){
-        ArrayList<Integer> picks = new ArrayList<Integer>();
-
-        int needed = 5;
-
-        while (needed > 0){
-            int newNumber = randomNumber(69);
-            if (!picks.contains(newNumber)){
-                picks.add(newNumber);
-                needed--;
-            }
-        }
-
-        int powerBall = randomNumber(26);
-
-        return new Pick(picks.get(0), picks.get(1), picks.get(2), picks.get(3), picks.get(4), powerBall);
-    }
-
-    // TODO: delete this while removing random picks
-    private Integer randomNumber(Integer max){
-        Random r = new Random();
-        int result = r.nextInt(max + 1);
-
-        if (result > 0 && result <= max){
-            return result;
-        } else {
-            return randomNumber(max);
-        }
     }
 
     public Iterable<Pick> GetPicks(){

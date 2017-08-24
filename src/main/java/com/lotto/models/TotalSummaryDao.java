@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
  * @author des
  */
 @Transactional
-public interface TotalSummaryDao extends CrudRepository<User, Long> {
+public interface TotalSummaryDao extends CrudRepository<TotalSummary, Long> {
 
 
 }

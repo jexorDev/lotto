@@ -15,6 +15,5 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface PaymentDao extends CrudRepository<Payment, Long> {
-        // TODO (?)
 
 }

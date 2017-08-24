@@ -2,7 +2,6 @@ package com.lotto.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * An entity TotalSummary
@@ -13,26 +12,28 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "total")
-public class TotalSummary implements Serializable {
-
-
+public class TotalSummary{
     // ------------------------
     // PRIVATE FIELDS
     // ------------------------
 
-    // An auto generated id (unique for each ticket in the db)
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    // the first user
     @NotNull
-    private User fromUser;
-
-    @Id
     @OneToOne(fetch = FetchType.LAZY)
+    private User userA;
+
+    // the second user
     @NotNull
-    private User toUser;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User userB;
 
-    private int amount;
-
+    // Amount of the payment
+    @NotNull
+    private Integer amount;
 
     // ------------------------
     // PUBLIC METHODS
@@ -40,26 +41,26 @@ public class TotalSummary implements Serializable {
 
     public TotalSummary() { }
 
-    public TotalSummary(User fromUser, User toUser, int amount) {
-        this.fromUser = fromUser;
-        this.toUser = toUser;
+    public TotalSummary(User userA, User userB, int amount) {
+        this.userA = userA;
+        this.userB = userB;
         this.amount = amount;
     }
 
-    public User getFromUser() {
-        return fromUser;
+    public User getUserA() {
+        return userA;
     }
 
-    public void setFromUser(User fromUser) {
-        this.fromUser = fromUser;
+    public void setUserA(User userA) {
+        this.userA = userA;
     }
 
-    public User getToUser() {
-        return toUser;
+    public User getUserB() {
+        return userB;
     }
 
-    public void setToUser(User toUser) {
-        this.toUser = toUser;
+    public void setUserB(User userB) {
+        this.userB = userB;
     }
 
     public int getAmount() {

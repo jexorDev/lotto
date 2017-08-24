@@ -16,7 +16,7 @@ public class History {
 
     private Integer balance;
 
-    // TODO remove when the user is an object on the payment object
+    // TODO remove when players is a list of users on the ticket
     private UserDao userDao;
 
     // TODO remove the userDao parameter from this constructor when the users are full objects on the payment object
@@ -65,7 +65,6 @@ public class History {
     public ArrayList<Transaction> getTransactions(){ return (ArrayList<Transaction>)transactions; }
 
     public void AddPayment(Payment payment){
-        // TODO replace the INT object with a real User object
         Date date = payment.getPaymentDate();
         Integer amount = payment.getAmount();
 
