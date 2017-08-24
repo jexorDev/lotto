@@ -2,9 +2,9 @@ package com.lotto.controller;
 
 import com.lotto.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -16,38 +16,40 @@ public class HomeController {
     @RequestMapping("/home")
     //Method-level request mapping appends its value onto the end of the class-level annotation
     //@RequestMapping(value = "shipwrecks", method = RequestMethod.GET)
-    public Model home(Model model) {
+    public Model home(@RequestParam("user") String username, Model model) {
         //loadData();
 
-        // TODO remove this and make history.processTransactions be dynamic
-        User dustin = userDao.findOne((long)1);
-        User anthony = userDao.findOne((long)2);
-        User sean = userDao.findOne((long)3);
+        List<User> allUsers = new ArrayList<User>();
+        User currentUser = null;
+        User nextUser = null;
 
-        // TODO replace the "3" to get the current user from the DB
-        model.addAttribute("currentUser", dustin);
+        // get the users and sort them
+        for (User u : userDao.findAll()){
+            // matching usernames is not case sensitive
+            if (u.getUserName().equalsIgnoreCase(username)) {
+                currentUser = u;
+            } else {
+                nextUser = u; // any other user, used for the history
+            }
+            allUsers.add(u);
+        }
+        Collections.sort(allUsers);
+
+        model.addAttribute("users", allUsers);
+        model.addAttribute("currentUser", currentUser);
 
         // get the tickets and sort them
         List<Ticket> tickets = new ArrayList<Ticket>();
-        for (Ticket t : ticketDao.findAll()){
-            tickets.add(t);
-        }
+        for (Ticket t : ticketDao.findAll()){ tickets.add(t); }
         Collections.sort(tickets);
         model.addAttribute("tickets", tickets);
 
-        History history = new History(userDao);
+        History history = new History();
         history.AddPayments(paymentDao.findAll());
         history.AddTickets(tickets);
-        history.processTransactions(dustin, anthony, 5);
+        // TODO make the last parameter dynamic from the TotalSummary object
+        history.processTransactions(currentUser, nextUser, 5);
         model.addAttribute("history", history);
-
-        // get the users and sort them
-        List<User> users = new ArrayList<User>();
-        for (User u : userDao.findAll()){
-            users.add(u);
-        }
-        Collections.sort(users);
-        model.addAttribute("users", users);
 
         // render the template
         return model;
@@ -79,6 +81,7 @@ public class HomeController {
 
     private void loadData(){
         playerDao.deleteAll();
+        pickDao.deleteAll();
         ticketDao.deleteAll();
         paymentDao.deleteAll();
         totalSummaryDao.deleteAll();
@@ -96,8 +99,8 @@ public class HomeController {
             sean = userDao.findOne((long)3);
         } else { // tables are brand new. You need to add the users for the first time.
             dustin = new User("Dustin",true, "Welcome123", "", null);
-            anthony = new User("Anthony",true, "Welcome123", "", null);
             sean = new User("Sean",true, "Welcome123", "", null);
+            anthony = new User("Anthony",true, "Welcome123", "", null);
 
             userDao.save(dustin);
             userDao.save(anthony);
@@ -115,31 +118,51 @@ public class HomeController {
             User user = userDao.findOne(userId);
             Boolean powerPlay = randomNumber(2) == 2;
 
+            ///////////////////////////// DON'T DELETE THIS ///////////////////////////////
+            // save the ticket without picks or players
             Ticket ticket = new Ticket(cost, randomDate(), powerPlay, user);
             ticketDao.save(ticket);
 
+            // use the ticket to create and save picks
             Iterable<Pick> picks = randomPicks(ticket);
             pickDao.save(picks);
 
+            // use the ticket to create and save players
             Iterable<Player> players = randomPlayers(ticket, allUsers);
             playerDao.save(players);
 
+            // add picks and players to the ticket. Save again
             ticket.addPicks(picks);
             ticket.addPlayers(players);
             ticketDao.save(ticket);
         }
 
-        paymentDao.save(new Payment(sean, anthony, randomDate(), 3));
-        paymentDao.save(new Payment(anthony, dustin, randomDate(), 3));
-        paymentDao.save(new Payment(anthony, sean, randomDate(), 2));
-        paymentDao.save(new Payment(dustin, anthony, randomDate(), 5));
-        paymentDao.save(new Payment(anthony, sean, randomDate(), 3));
-        paymentDao.save(new Payment(anthony, dustin, randomDate(), 6));
+        // load up a bunch of random payments to/from everyone
+        for (int i = 0; i < randomNumber(7) + 2; i++) {
+            paymentDao.save(new Payment(sean, anthony, randomDate(), randomNumber(10)));
+        }
+        for (int i = 0; i < randomNumber(7) + 2; i++) {
+            paymentDao.save(new Payment(anthony, sean, randomDate(), randomNumber(10)));
+        }
+        for (int i = 0; i < randomNumber(7) + 2; i++) {
+            paymentDao.save(new Payment(sean, dustin, randomDate(), randomNumber(10)));
+        }
+        for (int i = 0; i < randomNumber(7) + 2; i++) {
+            paymentDao.save(new Payment(dustin, sean, randomDate(), randomNumber(10)));
+        }
+        for (int i = 0; i < randomNumber(7) + 2; i++) {
+            paymentDao.save(new Payment(anthony, dustin, randomDate(), randomNumber(10)));
+        }
+        for (int i = 0; i < randomNumber(7) + 2; i++) {
+            paymentDao.save(new Payment(dustin, anthony, randomDate(), randomNumber(10)));
+        }
 
         totalSummaryDao.save(new TotalSummary(dustin, anthony, 12));
         totalSummaryDao.save(new TotalSummary(anthony, dustin, -12));
         totalSummaryDao.save(new TotalSummary(dustin, sean, 6));
         totalSummaryDao.save(new TotalSummary(sean, dustin, -6));
+        totalSummaryDao.save(new TotalSummary(sean, anthony, 2));
+        totalSummaryDao.save(new TotalSummary(anthony, sean, -2));
 
         return;
     }
@@ -172,7 +195,7 @@ public class HomeController {
     // TODO: delete this while removing random picks
     private List<Pick> randomPicks(Ticket ticket){
         List<Pick>picks = new ArrayList<Pick>();
-        for (int j = 0; j <= randomNumber(5); j++) {
+        for (int j = 0; j < randomNumber(5); j++) {
             picks.add(randomPick(ticket));
         }
         return picks;

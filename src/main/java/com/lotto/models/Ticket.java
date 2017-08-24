@@ -148,8 +148,11 @@ public class Ticket implements Comparable {
         }
     }
 
-    // TODO make this actually get the players
-    public String GetPlayers(){
+    public Collection<Player> GetPlayers() { return players; }
+
+    public void SetPlayers(Collection<Player> players) { this.players = players; }
+
+    public String GetPlayerString(){
         String playerString = purchaserUser.getUserName();
 
         Object[] playersArray = players.toArray();

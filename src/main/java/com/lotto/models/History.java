@@ -16,12 +16,7 @@ public class History {
 
     private Integer balance;
 
-    // TODO remove when players is a list of users on the ticket
-    private UserDao userDao;
-
-    // TODO remove the userDao parameter from this constructor when the users are full objects on the payment object
-    public History(UserDao userDao) {
-        this.userDao = userDao;
+    public History() {
         this.transactions = new ArrayList<Transaction>();
     };
 
@@ -81,26 +76,15 @@ public class History {
     }
 
     public void AddTicket(Ticket ticket){
-        User payer = ticket.getPurchaserUser();
+        User purchaser = ticket.getPurchaserUser();
         Date date = ticket.getPurchasedate();
 
-        // TODO replace this with an actual calculation of how many players there are
-        Integer playerCount = 2 + 1; // 2 players + 1 purchaser
+        Integer playerCount = ticket.GetPlayers().size() + 1;
         Integer amount = ticket.getCost() / playerCount;
 
-        // TODO replace with a for loop of each player.
-        // this is just making a list of players that assumes everyone other than the purchaser is a player
-        List<User> players = new ArrayList<User>();
-        for (int i = 1; i < 4; i++) {
-            if (i != payer.getId()){
-                players.add(userDao.findOne((long)i));
-            }
-        }
-
-        for (User recipient : players) {
-            String description = String.format("%1$s bought a ticket for %2$s.", payer.getUserName(), recipient.getUserName());
-            Transaction transaction = new Transaction(date, description, payer, recipient, amount);
-            transactions.add(transaction);
+        for (Player player : ticket.GetPlayers()) {
+            String description = String.format("%1$s bought a ticket for %2$s.", purchaser.getUserName(), player.getUser().getUserName());
+            transactions.add(new Transaction(date, description, purchaser, player.getUser(), amount));
         }
     }
 }
