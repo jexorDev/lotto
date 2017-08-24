@@ -48,6 +48,10 @@ public class Ticket implements Comparable {
     @OneToMany(mappedBy="ticket")
     private Collection<Pick> picks;
 
+    // The list of picks associated with the ticket
+    @OneToMany
+    private Collection<Player> players;
+
     // ------------------------
     // PUBLIC METHODS
     // ------------------------
