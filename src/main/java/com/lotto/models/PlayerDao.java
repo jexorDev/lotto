@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
  * @author des
  */
 @Transactional
-public interface PlayerDao extends CrudRepository<Ticket, Long> {
+public interface PlayerDao extends CrudRepository<Player, Long> {
 
 
-}
+} // class PlayerDao

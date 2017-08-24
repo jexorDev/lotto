@@ -22,11 +22,14 @@ public class Player implements Serializable {
 
     // An auto generated id (unique for each ticket in the db)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    // An auto generated id (unique for each ticket in the db)
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull
     private Ticket ticket;
 
-    @Id
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull
     private User player;

@@ -71,48 +71,47 @@ public class HomeController {
     @Autowired
     private TotalSummaryDao totalSummaryDao;
 
+    @Autowired
+    private PlayerDao playerDao;
+
     private void loadData(){
+        playerDao.deleteAll();
+        ticketDao.deleteAll();
+        paymentDao.deleteAll();
+        totalSummaryDao.deleteAll();
+        userDao.deleteAll();
+
         User dustin = new User("Dustin",true, "Welcome123", "", null);
         userDao.save(dustin);
         User anthony = new User("Anthony",true, "Welcome123", "", null);
         userDao.save(anthony);
         User sean = new User("Sean",true, "Welcome123", "", null);
         userDao.save(sean);
+        List<User> allUsers = new ArrayList<User>();
+        allUsers.add(dustin);
+        allUsers.add(anthony);
+        allUsers.add(sean);
 
         // TODO: delete this while removing random picks
-        for (int i = 0; i <= randomNumber(6); i++) {
+        for (int i = 0; i <= randomNumber(10); i++) {
             int cost = randomNumber(5) * 3;
-            int year = 2017;
-            int month = randomNumber(12) - 1;
-            int day = randomNumber(28);
-            User user = userDao.findOne((long)randomNumber(3));
+            long userId = (long)randomNumber(3);
+            User user = userDao.findOne(userId);
+            Boolean powerPlay = randomNumber(2) == 2;
 
-            // TODO: delete this while removing random picks
-            List<Pick>picks = new ArrayList<Pick>();
-            for (int j = 0; j <= randomNumber(5); j++) {
-                picks.add(randomPick());
-            }
+            Ticket ticket = new Ticket(cost, randomDate(), powerPlay, user, randomPicks());
+            Iterable<Player> players = randomPlayers(ticket, allUsers);
 
-            List<Player> players = new ArrayList<Player>();
-
-            ticketDao.save(new Ticket(cost, new Date(year, month, day), user, picks, players));
+            ticketDao.save(ticket);
+            playerDao.save(players);
         }
 
-        /*
-        ticketDao.save(new Ticket(6, new Date(2017, 3, 28), anthony));
-        ticketDao.save(new Ticket(3, new Date(2017, 7, 12), sean));
-        ticketDao.save(new Ticket(9, new Date(2017, 5, 11), dustin));
-        ticketDao.save(new Ticket(15, new Date(2017, 1, 30), anthony));
-        ticketDao.save(new Ticket(12, new Date(2017, 9, 25), dustin));
-        ticketDao.save(new Ticket(9, new Date(2017, 1, 6), anthony));
-         */
-
-        paymentDao.save(new Payment(sean, anthony, new Date(2017,1,6), 3));
-        paymentDao.save(new Payment(anthony, dustin, new Date(2017,2,6), 3));
-        paymentDao.save(new Payment(anthony, sean, new Date(2017,2,6), 2));
-        paymentDao.save(new Payment(dustin, anthony, new Date(2017,3,6), 5));
-        paymentDao.save(new Payment(anthony, sean, new Date(2017,4,6), 3));
-        paymentDao.save(new Payment(anthony, dustin, new Date(2017,7,6), 6));
+        paymentDao.save(new Payment(sean, anthony, randomDate(), 3));
+        paymentDao.save(new Payment(anthony, dustin, randomDate(), 3));
+        paymentDao.save(new Payment(anthony, sean, randomDate(), 2));
+        paymentDao.save(new Payment(dustin, anthony, randomDate(), 5));
+        paymentDao.save(new Payment(anthony, sean, randomDate(), 3));
+        paymentDao.save(new Payment(anthony, dustin, randomDate(), 6));
 
         totalSummaryDao.save(new TotalSummary(dustin, anthony, 12));
         totalSummaryDao.save(new TotalSummary(anthony, dustin, -12));
@@ -122,6 +121,48 @@ public class HomeController {
         return;
     }
 
+    private List<Player> randomPlayers(Ticket ticket, List<User> allUsers){
+        List<Player> players = new ArrayList<Player>();
+        List<User> possibleUsers = new ArrayList<User>();
+        Integer playerCount = randomNumber(3) - 1;
+
+        for (User user : allUsers){
+            if (user != ticket.getPurchaserUser()){
+                possibleUsers.add(user);
+            }
+        }
+
+        if (playerCount == 0){
+            return players;
+        } else if (playerCount == 1) {
+            possibleUsers.remove(randomNumber(2) - 1);
+        }
+
+        for (User user : possibleUsers){
+            players.add(new Player(ticket, user));
+        }
+
+        return players;
+    }
+
+    // TODO: delete this while removing random picks
+    private List<Pick> randomPicks(){
+        List<Pick>picks = new ArrayList<Pick>();
+                for (int j = 0; j <= randomNumber(5); j++) {
+            picks.add(randomPick());
+        }
+        return picks;
+    }
+
+
+    // TODO: delete this while removing random picks
+    private Date randomDate(){
+        int year = randomNumber(2) + 2015;
+        int month = randomNumber(12) - 1;
+        int day = randomNumber(28);
+
+        return new Date(year, month, day);
+    }
 
     // TODO: delete this while removing random picks
     private Pick randomPick(){

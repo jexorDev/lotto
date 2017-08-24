@@ -29,9 +29,9 @@
         </p>
 
         <p>
-            <!-- TODO: change this to actually checking whether the ticketis a powerplay -->
-            <span th:unless="${ticket.purchaserUser.id}==1">&nbsp;</span>
-            <span th:if="${ticket.purchaserUser.id}==1">
+            <!-- TODO: change this to actually checking whether the ticket is a powerplay -->
+            <span th:unless="${ticket.powerPlay}">&nbsp;</span>
+            <span th:if="${ticket.powerPlay}">
                 <span class="glyphicon glyphicon-flash"></span>
                 Power Play!
             </span>

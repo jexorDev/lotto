@@ -43,6 +43,10 @@ public class Ticket implements Comparable {
     @OneToOne(fetch = FetchType.LAZY)
     private User purchaserUser;
 
+    // Whether the ticket is a powerPlay
+    @NotNull
+    private Boolean powerPlay;
+
     // The list of picks associated with the ticket
     @NotNull
     @OneToMany(mappedBy="ticket")
@@ -58,12 +62,13 @@ public class Ticket implements Comparable {
 
     public Ticket() { }
 
-    public Ticket(Integer cost, Date purchaseDate, User purchaserUser, Collection<Pick> picks, Collection<Player> players) {
+    public Ticket(Integer cost, Date purchaseDate, Boolean powerPlay, User purchaserUser, Collection<Pick> picks) {
         this.cost = cost;
         this.purchaseDate = purchaseDate;
+        this.powerPlay = powerPlay;
         this.purchaserUser = purchaserUser;
         this.picks = picks;
-        this.players = players;
+        this.players = new ArrayList<Player>();
     }
 
     public Iterable<Pick> GetPicks(){
@@ -94,6 +99,10 @@ public class Ticket implements Comparable {
     public void setPurchasedate(Date purchasedate) {
         this.purchaseDate = purchasedate;
     }
+
+    public Boolean getPowerPlay() { return powerPlay; }
+
+    public void setPowerPlay(Boolean powerPlay) { this.powerPlay = powerPlay; }
 
     public User getPurchaserUser() {
         return purchaserUser;
@@ -127,6 +136,10 @@ public class Ticket implements Comparable {
         cal.setTime(date);
         cal.add(Calendar.DATE, days); //minus number would decrement the days
         return cal.getTime();
+    }
+
+    public void addPlayers(List<Player> players) {
+        this.players.addAll(players);
     }
 
     // TODO make this actually get the players
