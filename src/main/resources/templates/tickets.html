@@ -3,15 +3,18 @@
 <body>
 
 <div th:fragment="tickets"> <!-- contents render, but this div disappears -->
-    <div class="h2 media-heading pale">Active Tickets</div>
-    <p class="label label-info"><a href="#">Show All</a></p>
+    <div class="h2 media-heading pale padleft">Active Tickets</div>
+    <p class="label label-info padleft" id="toggleTickets"><a href="#">Show All</a></p>
 
     <div th:each="ticket : ${tickets}">
         <div th:replace="tickets :: ticket" />
     </div>
 </div>
 
-<div th:fragment="ticket" class="col-md-2 ticket">
+<div th:fragment="ticket"
+     th:classappend="${ticket.getDisplay()} ? 'recent' : 'old'"
+     th:style="${ticket.getDisplay()} ? '' : 'display:none;'"
+     class="col-md-2 ticket">
     <div class="well ticket-wrapper" th:classappend="${ticket.purchaserUser.id}==1 ? 'powerplay' : 'standard'">
         <div class="col-md-6 nopadding">
             <h5 class="date-label"><small>Purchased</small></h5>

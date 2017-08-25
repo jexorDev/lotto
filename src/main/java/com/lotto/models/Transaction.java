@@ -6,6 +6,7 @@ package com.lotto.models;
 
 import org.hibernate.tool.hbm2ddl.ImportScriptException;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Transaction implements Comparable {
@@ -40,6 +41,12 @@ public class Transaction implements Comparable {
         this.payer = payer;
         this.recipient = recipient;
         this.amount = amount;
+
+        // only show 30 days of history
+        Calendar minCal = Calendar.getInstance();
+        minCal.add(Calendar.DATE, -30);
+        minCal.add(Calendar.YEAR, 1900);
+        this.display = transactionDate.compareTo(minCal.getTime()) > 0;
     }
 
     // Get-set methods
@@ -81,10 +88,9 @@ public class Transaction implements Comparable {
         this.isDebt = !isCredit;
     }
 
-    public void Show(){ this.display = true; }
-    public void Hide(){ this.display = false; }
-    public void Toggle() { this.display = !this.display; }
-    public Boolean Display() { return this.display; }
+    public Boolean getDisplay() { return this.display; }
+
+    public void setDisplay(Boolean display) { this.display = display;}
 
     public Date GetJavaDate() {
         Date javaDate = new Date(transactionDate.getTime());
