@@ -4,70 +4,71 @@
 
 <div th:fragment="new" > <!-- contents render, but this div disappears -->
     <div class="panel panel-default">
-    <div class="panel-heading">Add Ticket</div>
-    <div class="panel-body">
+        <div class="panel-heading">Add Ticket</div>
+        <div class="panel-body">
+            <form th:action="@{/ticket/create}" th:object="${ticket}" method="post">
+                <label class="ticket">Purchaser:</label>
+                <b th:inline="text">[[${currentUser.userName}]]</b>
+                <br/>
 
-    <label class="ticket">Purchaser:</label>
-    <b th:inline="text">[[${currentUser.userName}]]</b>
-    <br/>
+                <label class="ticket">Players:</label>
+                <input type="checkbox" checked="checked" disabled="disabled" th:text=" ${currentUser.userName}"/>
+                <br/>
 
-    <label class="ticket">Players:</label>
-    <input type="checkbox" checked="checked" disabled="disabled" th:text=" ${currentUser.userName}"/>
-    <br/>
+                <span th:each="user : ${users}" th:if="${user.id != currentUser.id}">
+                    <label class="ticket">&nbsp;</label>
+                    <input type="checkbox" name="players" th:text=" ${user.userName}" th:value="${user.id}"/>
+                    <br/>
+                </span>
 
-    <span th:each="user : ${users}" th:if="${user.id != currentUser.id}">
-        <label class="ticket">&nbsp;</label>
-        <input type="checkbox" th:text=" ${user.userName}"/>
-        <br/>
-    </span>
+                <label class="ticket">Purchase Date:</label>
+                <input th:field="*{purchaseDate}" />
+                <br/>
 
-    <label class="ticket">Purchase Date:</label>
-    <input />
-    <br/>
+                <label class="ticket">Power Play:</label>
+                <input type="checkbox" th:field="*{powerPlay}" />
+                <br/>
 
-    <label class="ticket">Power Play:</label>
-    <input type="checkbox" />
-    <br/>
-
-    <label class="ticket">Cost:</label>
-    <input />
-    <br/>
-
-
-    <label class="ticket"/>
-    <label class="ticket-numbers">1</label>
-    <label class="ticket-numbers">2</label>
-    <label class="ticket-numbers">3</label>
-    <label class="ticket-numbers">4</label>
-    <label class="ticket-numbers">5</label>
-    <label class="ticket-numbers">PB</label>
-    <br/>
-
-    <label class="ticket">Numbers:</label>
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
-    <br/>
-
-    <label class="ticket"/>
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <input class="ticket-numbers" />
-    <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
-    <br/>
+                <label class="ticket">Cost:</label>
+                <input th:field="*{cost}"  />
+                <br/>
 
 
+                <label class="ticket"/>
+                <label class="ticket-numbers">1</label>
+                <label class="ticket-numbers">2</label>
+                <label class="ticket-numbers">3</label>
+                <label class="ticket-numbers">4</label>
+                <label class="ticket-numbers">5</label>
+                <label class="ticket-numbers">PB</label>
+                <br/>
 
-    <label class="ticket"/>
-    <button type="button" class="btn btn-primary">Add Ticket</button>
-    </div>
+                <label class="ticket">Numbers:</label>
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+                <br/>
+
+                <label class="ticket"/>
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <input class="ticket-numbers" />
+                <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+                <br/>
+
+
+
+                <label class="ticket"/>
+                <button type="submit" class="btn btn-primary">Add Ticket</button>
+            </form>
+        </div>
     </div>
 </div>
 

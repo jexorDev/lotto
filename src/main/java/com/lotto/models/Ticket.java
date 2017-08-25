@@ -59,7 +59,10 @@ public class Ticket implements Comparable {
     // PUBLIC METHODS
     // ------------------------
 
-    public Ticket() { }
+    public Ticket() {
+        this.picks = new ArrayList<Pick>();
+        this.players = new ArrayList<Player>();
+    }
 
     public Ticket(Integer cost, Date purchaseDate, Boolean powerPlay, User purchaserUser) {
         this.cost = cost;
@@ -91,11 +94,11 @@ public class Ticket implements Comparable {
         this.cost = cost;
     }
 
-    public Date getPurchasedate() {
+    public Date getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchasedate(Date purchasedate) {
+    public void setPurchaseDate(Date purchasedate) {
         this.purchaseDate = purchasedate;
     }
 

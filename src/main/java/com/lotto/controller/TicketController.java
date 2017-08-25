@@ -3,11 +3,14 @@ package com.lotto.controller;
 import com.lotto.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -33,11 +36,23 @@ public class TicketController {
      */
     @RequestMapping(value="/ticket/create", method=POST )
     @ResponseBody
-    public String create(Integer cost, Date purchaseDate, @RequestParam(value="purchaserUser") User purchaserUser) {
-        Ticket ticket = null;
+    public String create(@ModelAttribute Ticket ticket, @RequestParam(value="players") List<User> players) {
+
         try {
-            //ticket = new Ticket(cost, purchaseDate, purchaserUser);
+
+            ticket.setPurchaserUser(players.get(0));
             ticketDao.save(ticket);
+
+            ArrayList<Player> playerList = new ArrayList<Player>();
+            for (User user : players) {
+                playerList.add(new Player(ticket, user));
+            }
+
+            playerDao.save(playerList);
+
+            ticket.addPlayers(playerList);
+            ticketDao.save(ticket);
+
 
             // This is how it's done in the initial data load. This is likely the same way tickets will be created here.
             /*
@@ -91,5 +106,8 @@ public class TicketController {
 
     @Autowired
     private TicketDao ticketDao;
+
+    @Autowired
+    private PlayerDao playerDao;
 
 }

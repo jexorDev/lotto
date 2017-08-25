@@ -70,10 +70,12 @@ public class HomeController {
         model.addAttribute("users", users);
 
         List<TotalSummary> totalSummary = new ArrayList<TotalSummary>();
-        for (TotalSummary t : totalSummaryDao.findByUserA(anthony)) {
+        for (TotalSummary t : totalSummaryDao.findByUserA(currentUser)) {
             totalSummary.add(t);
         }
         model.addAttribute("totalSummary", totalSummary);
+
+        model.addAttribute("ticket", new Ticket());
 
         // render the template
         return model;

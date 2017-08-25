@@ -77,7 +77,7 @@ public class History {
 
     public void AddTicket(Ticket ticket){
         User purchaser = ticket.getPurchaserUser();
-        Date date = ticket.getPurchasedate();
+        Date date = ticket.getPurchaseDate();
 
         Integer playerCount = ticket.GetPlayers().size() + 1;
         Integer amount = ticket.getCost() / playerCount;
