@@ -5,12 +5,14 @@
 <div th:fragment="history"> <!-- contents render, but this div disappears -->
     <div class="h2 media-heading pale">Transaction History</div>
 
+    <div class="label label-info"><a href="#">Show All</a></div>
+
     <div class="well well-sm">
 
         <div>
             See your history with
-            <select>
-                <option th:each="user : ${users}" th:text="${user.userName}" th:if="${user.id} != ${currentUser.id}"></option>
+            <select id="historySelector">
+                <option th:each="user : ${users}" th:text="${user.userName}" th:if="${user.id} != ${currentUser.id}" th:value="${user.id}" th:selected="${user.id} == ${historyUser.id}"></option>
             </select>
         </div>
 
@@ -24,11 +26,7 @@
             <tr th:each="transaction : ${history.transactions}" th:include="history :: record" th:if="${transaction.Display()}" class="transaction"></tr>
 
         </table>
-
     </div>
-
-    <p class="label label-info"><a href="#">Show All</a></p>
-
 </div>
 
 <tr th:fragment="record">

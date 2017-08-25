@@ -17,21 +17,22 @@ public class HomeController {
     @RequestMapping("/home")
     //Method-level request mapping appends its value onto the end of the class-level annotation
     //@RequestMapping(value = "shipwrecks", method = RequestMethod.GET)
-    public Model home(@RequestParam("user") String username, Model model) {
+    public Model home(@RequestParam("user") String username, @RequestParam(value="historyUser", required=false) Integer historyUserId, Model model) {
         //loadData();
+        historyUserId = historyUserId == null ? 0 : historyUserId;
 
         List<User> allUsers = new ArrayList<User>();
         User currentUser = null;
-        User nextUser = null;
+        User historyUser = null;
 
         // get the users and sort them
         for (User u : userDao.findAll()){
             // matching usernames is not case sensitive
             if (u.getUserName().equalsIgnoreCase(username)) {
                 currentUser = u;
-            } else {
-                // TODO add this to the template and use it for the history dropdown
-                nextUser = u; // any other user, used for the history
+            } else if (u.getId() == historyUserId || historyUserId == 0){
+                historyUser = u; // any other user, used for the history
+                historyUserId = (int)u.getId();
             }
             allUsers.add(u);
         }
@@ -39,6 +40,7 @@ public class HomeController {
 
         model.addAttribute("users", allUsers);
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("historyUser", historyUser);
 
         // get the tickets and sort them
         List<Ticket> tickets = new ArrayList<Ticket>();
@@ -54,11 +56,21 @@ public class HomeController {
         Collections.sort(tickets);
         model.addAttribute("tickets", tickets);
 
+        Integer comparisonTotal = 0;
+        List<TotalSummary> totalSummary = new ArrayList<TotalSummary>();
+        for (TotalSummary t : totalSummaryDao.findByUserA(currentUser)) {
+            totalSummary.add(t);
+
+            if (t.getUserA() == currentUser && t.getUserB() == historyUser){
+                comparisonTotal = t.getAmount();
+            }
+        }
+        model.addAttribute("totalSummary", totalSummary);
+
         History history = new History();
         history.AddPayments(paymentDao.findAll());
         history.AddTickets(tickets);
-        // TODO make the last parameter dynamic from the TotalSummary object
-        history.processTransactions(currentUser, nextUser, 5);
+        history.processTransactions(currentUser, historyUser, comparisonTotal);
         model.addAttribute("history", history);
 
         // get the users and sort them
@@ -68,12 +80,6 @@ public class HomeController {
         }
         Collections.sort(users);
         model.addAttribute("users", users);
-
-        List<TotalSummary> totalSummary = new ArrayList<TotalSummary>();
-        for (TotalSummary t : totalSummaryDao.findByUserA(anthony)) {
-            totalSummary.add(t);
-        }
-        model.addAttribute("totalSummary", totalSummary);
 
         // render the template
         return model;
