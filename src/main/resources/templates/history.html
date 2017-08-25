@@ -5,9 +5,9 @@
 <div th:fragment="history"> <!-- contents render, but this div disappears -->
     <div class="h2 media-heading pale">Transaction History</div>
 
-    <div class="label label-info" id="toggleHistory"><a href="#">Show All</a></div>
+    <p class="label label-info" id="toggleHistory"><a href="#">Show All</a></p>
 
-    <div class="well well-sm">
+    <div class="well well-sm" id="history-wrapper">
 
         <div>
             See your history with
@@ -20,8 +20,8 @@
             <tr>
                 <th>Date</th>
                 <th>Description</th>
-                <th>Amount</th>
-                <th>Balance</th>
+                <th class="right">Amount</th>
+                <th class="right">Balance</th>
             </tr>
             <tr
                 th:each="transaction : ${history.transactions}"
@@ -38,8 +38,14 @@
 <tr th:fragment="record">
     <td th:text="${#dates.format(transaction.GetJavaDate(), 'MM/dd/yyyy')}"></td>
     <td th:text="${transaction.description}"></td>
-    <td th:inline="text" th:classappend="${transaction.isDebt} ? 'debt' : 'credit'">$ [[${transaction.amount}]]</td>
-    <td th:inline="text" th:classappend="${transaction.runningTotal} > 0 ? 'debt' : 'credit'">$ [[${transaction.runningTotal}]]</td>
+    <td class="right"
+        th:classappend="${transaction.isDebt} ? 'debt' : 'credit'"
+        th:text="${transaction.isDebt} ? '$' + ${transaction.amount} : '-$' + ${transaction.amount}">
+    </td>
+    <td class="right"
+        th:classappend="${transaction.runningTotal} >= 0 ? 'debt' : 'credit'"
+        th:text="${transaction.runningTotal} >= 0 ? '$' + ${transaction.runningTotal} : '-$' + (-1 * ${transaction.runningTotal})">
+    </td>
 </tr>
 
 </body>

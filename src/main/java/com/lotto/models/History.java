@@ -32,16 +32,13 @@ public class History {
             if ((t.getPayer()     == activeUser || t.getPayer()     == relatedUser)
              && (t.getRecipient() == activeUser || t.getRecipient() == relatedUser)
                 ){
-                // ensure the record will show in the template
-                //t.Show();
-
                 // mark whether it's considered a credit
                 Boolean isCredit = t.getRecipient() == relatedUser;
 
                 // set the running total
                 t.SetProcessingInfo(runningBalance, isCredit);
 
-                runningBalance += isCredit ? t.getAmount() : -t.getAmount();
+                runningBalance += isCredit ? -t.getAmount() : t.getAmount();
 
             } else {
                 deletes.add(t);

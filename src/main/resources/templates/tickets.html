@@ -3,8 +3,8 @@
 <body>
 
 <div th:fragment="tickets"> <!-- contents render, but this div disappears -->
-    <div class="h2 media-heading pale">Active Tickets</div>
-    <p class="label label-info" id="toggleTickets"><a href="#">Show All</a></p>
+    <div class="h2 media-heading pale padleft">Active Tickets</div>
+    <p class="label label-info padleft" id="toggleTickets"><a href="#">Show All</a></p>
 
     <div th:each="ticket : ${tickets}">
         <div th:replace="tickets :: ticket" />
