@@ -36,11 +36,12 @@ public class TicketController {
      */
     @RequestMapping(value="/ticket/create", method=POST )
     @ResponseBody
-    public String create(@ModelAttribute Ticket ticket, @RequestParam(value="players") List<User> players) {
+    public String create(@ModelAttribute Ticket ticket, @RequestParam(value="players", required=false) List<User> players, @RequestParam(value="currentUserId") int id) {
 
         try {
+            User currentUser = userDao.findOne((long)id);
 
-            ticket.setPurchaserUser(players.get(0));
+            ticket.setPurchaserUser(currentUser);
             ticketDao.save(ticket);
 
             ArrayList<Player> playerList = new ArrayList<Player>();
@@ -109,5 +110,8 @@ public class TicketController {
 
     @Autowired
     private PlayerDao playerDao;
+
+    @Autowired
+    private UserDao userDao;
 
 }

@@ -12,7 +12,8 @@
                 <br/>
 
                 <label class="ticket">Players:</label>
-                <input type="checkbox" checked="checked" disabled="disabled" th:text=" ${currentUser.userName}"/>
+                <input type="checkbox"  checked="checked" disabled="disabled" th:text=" ${currentUser.userName}" />
+                <input type="hidden" name="currentUserId" th:value="${currentUser.id}"/>
                 <br/>
 
                 <span th:each="user : ${users}" th:if="${user.id != currentUser.id}">
