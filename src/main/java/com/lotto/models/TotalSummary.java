@@ -76,10 +76,10 @@ public class TotalSummary{
         String predicament;
 
         if (amount < 0) {
-            predicament = "You owe " + userB.getUserName() + " " + Math.abs(amount);
+            predicament = "You owe " + userB.getUserName() + " $" + Math.abs(amount) + ".";
         }
         else if (amount > 0) {
-            predicament = userB.getUserName() + " owes you " + amount;
+            predicament = userB.getUserName() + " owes you $" + amount;
         }
         else {
             predicament = "You do not have a balance with " + userB.getUserName();
