@@ -42,6 +42,8 @@ public class HomeController {
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("historyUser", historyUser);
 
+        /*
+        // This filters out tickets. Use this when we have more time for an elegant show/hide all solution.
         // get the tickets and sort them
         List<Ticket> tickets = new ArrayList<Ticket>();
         Date today = new Date();
@@ -54,6 +56,13 @@ public class HomeController {
             }
         }
         Collections.sort(tickets);
+        model.addAttribute("tickets", tickets);
+         */
+        // get the tickets and sort them
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        for (Ticket t : ticketDao.findAll()){ tickets.add(t); }
+        Collections.sort(tickets);
+        Collections.reverse(tickets);
         model.addAttribute("tickets", tickets);
 
         Integer comparisonTotal = 0;
@@ -148,8 +157,11 @@ public class HomeController {
             User user = userDao.findOne(userId);
             Boolean powerPlay = randomNumber(2) == 2;
 
+            // either a date in August or September
+            Date newDate = new Date(2017, randomNumber(2)+6, randomNumber(30));
+
             // save the ticket without picks or players
-            Ticket ticket = new Ticket(cost, randomDate(), powerPlay, user);
+            Ticket ticket = new Ticket(cost, newDate, powerPlay, user);
             ticketDao.save(ticket);
 
             // use the ticket to create and save picks

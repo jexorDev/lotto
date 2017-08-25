@@ -5,7 +5,7 @@
 <div th:fragment="history"> <!-- contents render, but this div disappears -->
     <div class="h2 media-heading pale">Transaction History</div>
 
-    <div class="label label-info"><a href="#">Show All</a></div>
+    <div class="label label-info" id="toggleHistory"><a href="#">Show All</a></div>
 
     <div class="well well-sm">
 
@@ -23,7 +23,13 @@
                 <th>Amount</th>
                 <th>Balance</th>
             </tr>
-            <tr th:each="transaction : ${history.transactions}" th:include="history :: record" th:if="${transaction.Display()}" class="transaction"></tr>
+            <tr
+                th:each="transaction : ${history.transactions}"
+                th:include="history :: record"
+                th:classappend="${transaction.display} ? 'recent' : 'old'"
+                th:style="${transaction.display} ? '' : 'display:none;'"
+                class="transaction">
+            </tr>
 
         </table>
     </div>

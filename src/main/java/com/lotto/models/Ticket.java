@@ -111,6 +111,17 @@ public class Ticket implements Comparable {
         this.purchaserUser = purchaserUser;
     }
 
+    public Boolean getDisplay() {
+        // only show 7 days of history
+        Calendar minCal = Calendar.getInstance();
+        minCal.add(Calendar.DATE, -7);
+        //minCal.add(Calendar.YEAR, 1900);
+        Date minDate = minCal.getTime();
+        Date drawDate = GetDrawDate();
+        Integer comparison = drawDate.compareTo(minDate);
+        return comparison > 0;
+    }
+
     public Date GetJavaDate() {
         Date javaDate = new Date(purchaseDate.getTime());
         javaDate.setYear(javaDate.getYear()-1900);

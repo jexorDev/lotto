@@ -23,6 +23,9 @@ public class History {
     public void processTransactions(User activeUser, User relatedUser, Integer runningBalance) {
         this.balance = runningBalance;
 
+        // transactions to delete because they have the wrong user
+        List<Transaction> deletes = new ArrayList<Transaction>();
+
         sortTransactions();
 
         for (Transaction t : transactions){
@@ -30,7 +33,7 @@ public class History {
              && (t.getRecipient() == activeUser || t.getRecipient() == relatedUser)
                 ){
                 // ensure the record will show in the template
-                t.Show();
+                //t.Show();
 
                 // mark whether it's considered a credit
                 Boolean isCredit = t.getRecipient() == relatedUser;
@@ -41,9 +44,10 @@ public class History {
                 runningBalance += isCredit ? t.getAmount() : -t.getAmount();
 
             } else {
-                t.Hide();
+                deletes.add(t);
             }
         }
+        transactions.removeAll(deletes);
     }
 
     public void sortTransactions() {
