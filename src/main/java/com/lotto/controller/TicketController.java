@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.lotto.helpers.TotalSummaryHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +27,12 @@ public class TicketController {
     // PUBLIC METHODS
     // ------------------------
 
+    @RequestMapping(value="/ticket/addPick")
+    @ResponseBody
+    public void addPick(@ModelAttribute Ticket ticket) {
+        ticket.addPick();
+    }
+
     /**
      * /create  --> Create a new user and save it in the database.
      *
@@ -36,7 +43,7 @@ public class TicketController {
      */
     @RequestMapping(value="/ticket/create", method=POST )
     @ResponseBody
-    public String create(@ModelAttribute Ticket ticket, @RequestParam(value="players", required=false) List<User> players, @RequestParam(value="currentUserId") int id) {
+    public String create(@ModelAttribute Ticket ticket, @RequestParam(value="players", required=false) List<User> players, @RequestParam(value="currentUserId") int id) { //, @RequestParam(value="picks") List<Pick> picks) {
 
         try {
             User currentUser = userDao.findOne((long)id);
@@ -53,6 +60,12 @@ public class TicketController {
 
             ticket.addPlayers(playerList);
             ticketDao.save(ticket);
+
+            int costPerPlayer = ticket.getCost() / (playerList.size() + 1);
+            TotalSummaryHelper summaryHelper = new TotalSummaryHelper(totalSummaryDao);
+            for (User user : players) {
+                summaryHelper.createOrUpdateTotalSummary(ticket.getPurchaserUser(), user, costPerPlayer);
+            }
 
 
             // This is how it's done in the initial data load. This is likely the same way tickets will be created here.
@@ -113,5 +126,8 @@ public class TicketController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private TotalSummaryDao totalSummaryDao;
 
 }

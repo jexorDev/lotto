@@ -2,6 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
+<div th:fragment="pickRow">
+    <label class="ticket"/>
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <input class="ticket-numbers" />
+    <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+    <br/>
+</div>
+
 <div th:fragment="new" > <!-- contents render, but this div disappears -->
     <div class="panel panel-default">
         <div class="panel-heading">Add Ticket</div>
@@ -44,6 +56,7 @@
                 <label class="ticket-numbers">PB</label>
                 <br/>
 
+                <!--
                 <label class="ticket">Numbers:</label>
                 <input class="ticket-numbers" />
                 <input class="ticket-numbers" />
@@ -51,9 +64,19 @@
                 <input class="ticket-numbers" />
                 <input class="ticket-numbers" />
                 <input class="ticket-numbers" />
-                <button type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button" class="btn btn-success btn-xs" onclick="addPickRow(69)"><span class="glyphicon glyphicon-plus"></span></button>
                 <br/>
+                -->
 
+                <span th:object="${pick}" th:each="pick : ${ticket.GetPicks()}">
+
+                    <input class="ticket-numbers" th:value="*{pick1}"/>
+
+
+                    <br/>
+                </span>
+
+                <!--
                 <label class="ticket"/>
                 <input class="ticket-numbers" />
                 <input class="ticket-numbers" />
@@ -63,7 +86,7 @@
                 <input class="ticket-numbers" />
                 <button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
                 <br/>
-
+                -->
 
 
                 <label class="ticket"/>
@@ -72,6 +95,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

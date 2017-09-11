@@ -61,7 +61,11 @@ public class Ticket implements Comparable {
 
     public Ticket() {
         this.picks = new ArrayList<Pick>();
+        //this.picks.add(new Pick());
         this.players = new ArrayList<Player>();
+        this.picks.add(new Pick());
+        this.picks.add(new Pick());
+        this.picks.add(new Pick());
     }
 
     public Ticket(Integer cost, Date purchaseDate, Boolean powerPlay, User purchaserUser) {
@@ -76,6 +80,8 @@ public class Ticket implements Comparable {
     public Iterable<Pick> GetPicks(){
         return picks;
     }
+
+
 
     // Getter and setter methods
     public long getId() {
@@ -126,9 +132,9 @@ public class Ticket implements Comparable {
     }
 
     public Date GetJavaDate() {
-        Date javaDate = new Date(purchaseDate.getTime());
-        javaDate.setYear(javaDate.getYear()-1900);
-        return javaDate;
+        return new Date(purchaseDate.getTime());
+        //javaDate.setYear(javaDate.getYear()-1900);
+        //return javaDate;
     }
 
     public Date GetDrawDate() {
@@ -181,4 +187,8 @@ public class Ticket implements Comparable {
         return playerString;
     }
 
-} // class User
+    public void addPick() {
+        this.picks.add(new Pick());
+    }
+
+}

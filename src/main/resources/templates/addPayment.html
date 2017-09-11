@@ -9,29 +9,29 @@
             <div class="panel-body">
 
         <label class="payment">From:</label>
-        <select class="payment">
+        <select name="payerId" class="payment">
             <!-- select the current user by default -->
             <option th:each="user : ${users}" th:text="${user.userName}" th:if="${user.id == currentUser.id}" th:value="${param.user}" selected="selected"></option>
             <option th:each="user : ${users}" th:text="${user.userName}" th:if="${user.id != currentUser.id}" th:value="${user.id}"></option>
         </select>
         <br />
 
-        <label class="payment">To:</label>
-        <select class="payment">
-            <option th:each="user : ${users}" th:text="${user.userName}" th:value="${recipientID}"></option>
+        <label class="payment" >To:</label>
+        <select name="recipientId" class="payment">
+            <option th:each="user : ${users}" th:text="${user.userName}" th:value="${user.id}"></option>
         </select>
         <br />
 
         <label class="payment">Amount:</label>
-        <input name="amount" th:value="${amount}"/>
+        <input th:field="*{amount}"/>
         <br />
 
         <label class="payment">Date:</label>
-        <input name="date" value="2017-08-21" th:value="${paymentDate}"/>
+        <input th:field="*{paymentDate}"/>
         <br />
 
         <label class="payment"/>
-        <button class="payment btn btn-primary" type="button">Add Payment</button>
+        <button class="payment btn btn-primary" type="submit">Add Payment</button>
             </div>
         </div>
     </form>

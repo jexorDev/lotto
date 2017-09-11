@@ -92,6 +92,12 @@ public class HomeController {
 
         model.addAttribute("ticket", new Ticket());
 
+        List<Pick> picks = new ArrayList<Pick>();
+        picks.add(new Pick());
+        model.addAttribute("picksList", picks);
+
+        model.addAttribute("payment", new Payment());
+
         // render the template
         return model;
     }
